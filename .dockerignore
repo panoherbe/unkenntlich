@@ -1,0 +1,7 @@
+.git
+daten/
+medien/
+nachweis/
+messung/aus/
+**/__pycache__
+pruefsatz/erzeugung/

@@ -1,0 +1,7 @@
+# Browser für die Prüfung der Oberfläche: Playwright 1.56 (Chromium) und axe-core 4.14.1, beim Bauen geladen und
+# per Prüfsumme festgelegt; beim Lauf braucht der Browser nur die App im internen Netz.
+FROM mcr.microsoft.com/playwright/python:v1.56.0-noble
+RUN pip install --no-cache-dir --break-system-packages playwright==1.56.0 \
+ && curl -sSL -o /tmp/axe.tgz https://registry.npmjs.org/axe-core/-/axe-core-4.14.1.tgz \
+ && echo "e6b0ce02b84d892e2e33e403485e7f3d6c29e2be6df65daf44d89ba564139745  /tmp/axe.tgz" | sha256sum -c - \
+ && mkdir -p /opt/axe && tar -xzf /tmp/axe.tgz -C /opt/axe --strip-components=1 package/axe.min.js && rm /tmp/axe.tgz

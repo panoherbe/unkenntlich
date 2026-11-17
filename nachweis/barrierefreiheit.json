@@ -1,0 +1,141 @@
+{
+ "axe": "axe-core 4.14.1",
+ "regeln": [
+  "wcag2a",
+  "wcag2aa",
+  "wcag21a",
+  "wcag21aa",
+  "wcag22aa"
+ ],
+ "ansichten": [
+  {
+   "ansicht": "start-hell",
+   "verstoesse": [],
+   "bestanden": 26,
+   "offen": []
+  },
+  {
+   "ansicht": "start-dunkel",
+   "verstoesse": [],
+   "bestanden": 26,
+   "offen": []
+  },
+  {
+   "ansicht": "start-telefon-hell",
+   "verstoesse": [],
+   "bestanden": 26,
+   "offen": []
+  },
+  {
+   "ansicht": "ablegen-fertig-hell",
+   "verstoesse": [],
+   "bestanden": 26,
+   "offen": []
+  },
+  {
+   "ansicht": "ablegen-fertig-dunkel",
+   "verstoesse": [],
+   "bestanden": 26,
+   "offen": []
+  },
+  {
+   "ansicht": "pruefen-dokument-hell",
+   "verstoesse": [],
+   "bestanden": 28,
+   "offen": [
+    "color-contrast"
+   ]
+  },
+  {
+   "ansicht": "pruefen-dokument-dunkel",
+   "verstoesse": [],
+   "bestanden": 28,
+   "offen": [
+    "color-contrast"
+   ]
+  },
+  {
+   "ansicht": "pruefen-foto-hell",
+   "verstoesse": [],
+   "bestanden": 28,
+   "offen": [
+    "color-contrast"
+   ]
+  },
+  {
+   "ansicht": "pruefen-foto-dunkel",
+   "verstoesse": [],
+   "bestanden": 28,
+   "offen": [
+    "color-contrast"
+   ]
+  },
+  {
+   "ansicht": "pruefen-video-hell",
+   "verstoesse": [],
+   "bestanden": 31,
+   "offen": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "video-caption"
+   ]
+  },
+  {
+   "ansicht": "pruefen-video-dunkel",
+   "verstoesse": [],
+   "bestanden": 31,
+   "offen": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "video-caption"
+   ]
+  },
+  {
+   "ansicht": "gegenprobe-laeuft-hell",
+   "verstoesse": [],
+   "bestanden": 23,
+   "offen": []
+  },
+  {
+   "ansicht": "gegenprobe-ergebnis-hell",
+   "verstoesse": [],
+   "bestanden": 19,
+   "offen": []
+  },
+  {
+   "ansicht": "gegenprobe-ergebnis-dunkel",
+   "verstoesse": [],
+   "bestanden": 19,
+   "offen": []
+  },
+  {
+   "ansicht": "fertig-hell",
+   "verstoesse": [],
+   "bestanden": 24,
+   "offen": [
+    "color-contrast",
+    "video-caption"
+   ]
+  },
+  {
+   "ansicht": "fertig-dunkel",
+   "verstoesse": [],
+   "bestanden": 24,
+   "offen": [
+    "color-contrast",
+    "video-caption"
+   ]
+  }
+ ],
+ "verstoesse_gesamt": 0,
+ "zur_handpruefung": 14,
+ "zur_handpruefung_regeln": [
+  "aria-prohibited-attr",
+  "color-contrast",
+  "video-caption"
+ ],
+ "gegenprobe_reste": 0,
+ "schieber_tastatur_wert": "40",
+ "seitenfehler": [],
+ "browser": "141.0.7390.37"
+}

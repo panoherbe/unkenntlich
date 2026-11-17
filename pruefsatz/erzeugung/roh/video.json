@@ -1,0 +1,44 @@
+[
+ {
+  "datei": "szene-1.mp4",
+  "breite": 1024,
+  "hoehe": 560,
+  "einzelbilder": 81,
+  "fps": 24,
+  "schritte": 30,
+  "cfg": 5.0,
+  "referenz": 3.0,
+  "startwert": 3114,
+  "startbild": "szene-1-start.png",
+  "beschreibung": "A pedestrian shopping street in a small German town on a bright afternoon, view along the street. Five people walk slowly towards the camera at different distances, their faces clearly visible: a couple in their forties, a young woman with a backpack, an older man with a flat cap, a teenager with headphones. On the left a white delivery van is parked at the kerb with its front facing the camera; its licence plate is a white German plate with a blue EU band and the black text \"XZ-DL 314\". Shop windows, planters and paving stones. Realistic documentary footage filmed with a fixed camera on a tripod at eye level, natural daylight, sharp focus, ordinary people in everyday clothes walking at a normal pace. The camera remains fixed throughout.",
+  "sekunden": 1865.7
+ },
+ {
+  "datei": "szene-2.mp4",
+  "breite": 1024,
+  "hoehe": 560,
+  "einzelbilder": 81,
+  "fps": 24,
+  "schritte": 30,
+  "cfg": 5.0,
+  "referenz": 3.0,
+  "startwert": 2207,
+  "startbild": "szene-2-start.png",
+  "beschreibung": "A small German town square with a stone fountain. Two women stop in the foreground and talk to each other, their faces turned towards the camera; behind them people cross the square from left to right and from right to left. A bronze statue of a seated man stands motionless on a pedestal in the middle ground. On the right a red hatchback is parked with its rear towards the camera; its licence plate is a white German plate with a blue EU band and the black text \"QM-AT 1907\". Realistic documentary footage filmed with a fixed camera on a tripod at eye level, natural daylight, sharp focus, ordinary people in everyday clothes walking at a normal pace. The camera remains fixed throughout.",
+  "sekunden": 1875.0
+ },
+ {
+  "datei": "szene-3.mp4",
+  "breite": 1024,
+  "hoehe": 560,
+  "einzelbilder": 81,
+  "fps": 24,
+  "schritte": 30,
+  "cfg": 5.0,
+  "referenz": 3.0,
+  "startwert": 1907,
+  "startbild": "szene-3-start.png",
+  "beschreibung": "A tram stop in a German city in the late afternoon. A man in a grey coat and a woman with a pushchair wait at the stop and look towards the camera; a man with a briefcase walks past close to the camera; further back a few people walk along the pavement. A dark blue estate car is parked in the foreground on the right with its front towards the camera; its licence plate is a white German plate with a blue EU band and the black text \"YJ-RS 220\". Realistic documentary footage filmed with a fixed camera on a tripod at eye level, natural daylight, sharp focus, ordinary people in everyday clothes walking at a normal pace. The camera remains fixed throughout.",
+  "sekunden": 1869.4
+ }
+]

@@ -1,0 +1,30 @@
+.................                                                        [100%]
+=============================== warnings summary ===============================
+unkenntlich/server.py:41
+  /app/unkenntlich/server.py:41: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+../usr/local/lib/python3.13/site-packages/fastapi/applications.py:4723
+  /usr/local/lib/python3.13/site-packages/fastapi/applications.py:4723: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+tests/test_api.py::test_ablauf
+  /usr/local/lib/python3.13/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+tests/test_api.py::test_ablauf
+  /app/unkenntlich/modelle.py:95: FutureWarning: Use a size-specific class such as `RFDETRSmall` instead (see the migration guide).
+    m = RFDETRBase(pretrain_weights=str(ORDNER / "rfdetr-stempel-unterschrift.pth"), num_classes=3)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+17 passed, 4 warnings in 14.93s

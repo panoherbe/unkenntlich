@@ -1,0 +1,72 @@
+[
+ {
+  "datei": "marktplatz.png",
+  "breite": 1536,
+  "hoehe": 1024,
+  "startwert": 4711,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "A small German town market square on a sunny autumn afternoon. In the foreground, three adults stand together and chat beside a parked dark green vintage sedan; their faces are clearly visible and turned towards the camera at slightly different angles: a woman in her thirties with a beige trench coat, an older man with grey hair and glasses, a younger man with a dark jacket. The sedan's front licence plate is a white German plate with a blue EU band on the left, with the black letters \"XZ-KL 482\". Behind them, on a stone pedestal, a weathered bronze statue of a seated man with a book. On the right a small red hatchback is parked, its rear licence plate reads \"QM-AT 1907\". Half-timbered houses, café umbrellas and a few passers-by in the background. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 379.0
+ },
+ {
+  "datei": "szene-1-start.png",
+  "breite": 1280,
+  "hoehe": 704,
+  "startwert": 3114,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "A pedestrian shopping street in a German town centre on a bright afternoon, eye-level view along the street. Six people walk towards the camera at different distances, their faces visible: a couple in their forties, a young woman with a backpack, an older man with a flat cap, two teenagers. On the left a white delivery van is parked at the kerb with its front licence plate facing the camera, a white German plate with a blue EU band reading \"XZ-DL 314\". On the right a shop window with a mannequin wearing a red coat. Paving stones, planters, shop signs without readable brand names. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 201.0
+ },
+ {
+  "datei": "parkplatz.png",
+  "breite": 1536,
+  "hoehe": 1024,
+  "startwert": 1907,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "The car park in front of a German supermarket on an overcast morning. A woman pushes a shopping trolley towards the camera, her face clearly visible; a man in a blue fleece jacket loads bags into the open boot of a silver estate car. Three parked cars face the camera with white German licence plates with a blue EU band: \"YJ-RS 220\" on a black compact car, \"XZ-PE 1033\" on the silver estate car, \"QM-BU 58\" on a white van. Shopping trolleys, a row of young trees, the supermarket entrance in the background. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 377.5
+ },
+ {
+  "datei": "werkstatt.png",
+  "breite": 1536,
+  "hoehe": 1024,
+  "startwert": 2207,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "The open courtyard of a small car repair workshop in a German suburb. A mechanic in dark blue overalls stands next to a raised bonnet and talks to a customer, a middle-aged woman with short hair; both faces are clearly visible in three-quarter view. The car is a red hatchback whose front licence plate is a white German plate with a blue EU band reading \"YJ-HN 4711\". Tyres stacked against a brick wall, a tool trolley, a roll-up door in the background. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 376.8
+ },
+ {
+  "datei": "flohmarkt.png",
+  "breite": 1536,
+  "hoehe": 1024,
+  "startwert": 1503,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "A busy flea market in a German city street on a Saturday morning, seen from slightly above. Dozens of people browse tables with books, records, lamps and old toys; many faces are visible at different distances, some close to the camera, most further away. Stall owners sit on folding chairs. Brick buildings and trees line the street. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 372.6
+ },
+ {
+  "datei": "szene-2-start.png",
+  "breite": 1280,
+  "hoehe": 704,
+  "startwert": 2207,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "A small German town square with a stone fountain on a sunny afternoon, eye-level view. In the foreground two women in their fifties stand and talk, their faces turned towards the camera; behind them four people cross the square at different distances. In the middle ground a weathered bronze statue of a seated man on a stone pedestal. On the right a red hatchback is parked with its rear towards the camera; its licence plate is a white German plate with a blue EU band reading \"QM-AT 1907\". Half-timbered houses, a bakery, café chairs, shop signs without readable brand names. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 200.4
+ },
+ {
+  "datei": "szene-3-start.png",
+  "breite": 1280,
+  "hoehe": 704,
+  "startwert": 1907,
+  "schritte": 50,
+  "cfg": 3.0,
+  "beschreibung": "A tram stop in a German city in the late afternoon, eye-level view. A man in a grey coat and a young woman with a pushchair wait at the stop and look towards the camera; a man with a briefcase walks past close to the camera; further back a few people walk along the pavement. In the foreground on the right a dark blue estate car is parked with its front towards the camera; its licence plate is a white German plate with a blue EU band reading \"YJ-RS 220\". Tram tracks, a glass shelter, trees, no readable brand names. Realistic candid photograph, natural daylight, shot on a 35 mm lens at eye level, sharp focus, true-to-life colours, ordinary people in everyday clothes, no text overlays, no watermark.",
+  "sekunden": 200.4
+ }
+]

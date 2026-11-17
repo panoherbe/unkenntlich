@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prüfbericht – Vorgang {{ v.id }}</title>
+<style>
+@font-face { font-family: "Albert Sans"; src: url("{{ albert }}") format("woff2"); font-weight: 100 900; }
+@font-face { font-family: "Plex Mono"; src: url("{{ mono }}") format("woff2"); }
+:root { --tinte: #14191c; --leise: #56636a; --linie: #dbe2e5; --flaeche: #f3f6f7; --akzent: #0b5866;
+        --gut: #14724f; --schlecht: #a3262a; }
+@page { size: A4; margin: 16mm 15mm 18mm 15mm;
+        @bottom-left { content: "Unkenntlich {{ version }} · Prüfbericht Vorgang {{ v.id }}"; font: 7.5pt "Albert Sans", sans-serif; color: #56636a; }
+        @bottom-right { content: "Seite " counter(page) " von " counter(pages); font: 7.5pt "Albert Sans", sans-serif; color: #56636a; } }
+* { box-sizing: border-box; }
+body { font-family: "Albert Sans", system-ui, sans-serif; color: var(--tinte); font-size: 9.6pt; line-height: 1.45;
+       margin: 0 auto; max-width: 980px; padding: 28px; background: #fff; }
+@media print { body { padding: 0; max-width: none; } }
+header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; border-bottom: 1.5px solid var(--tinte);
+         padding-bottom: 12px; }
+header .marke { width: 190px; color: var(--tinte); }
+header h1 { font-size: 21pt; font-weight: 640; margin: 10px 0 0; letter-spacing: -0.01em; }
+header .meta { text-align: right; color: var(--leise); font-size: 8.6pt; }
+.ergebnis { display: flex; align-items: center; gap: 18px; margin: 18px 0 8px; padding: 16px 20px; border-radius: 14px;
+            background: #e9f4ef; }
+.ergebnis.gesperrt { background: #f8e9e9; }
+.ergebnis .zeichen { width: 52px; height: 52px; flex: none; }
+.ergebnis strong { display: block; font-size: 16pt; font-weight: 650; }
+.ergebnis span { color: var(--leise); }
+.zahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0 18px; }
+.zahlen div { background: var(--flaeche); border-radius: 10px; padding: 10px 12px; }
+.zahlen b { display: block; font-size: 15pt; font-weight: 640; }
+.zahlen span { color: var(--leise); font-size: 8.4pt; }
+h2 { font-size: 12.5pt; font-weight: 640; margin: 22px 0 6px; }
+h3 { font-size: 10.6pt; font-weight: 640; margin: 14px 0 4px; }
+.datei { border: 1px solid var(--linie); border-radius: 14px; padding: 14px 16px; margin: 12px 0 16px; break-inside: auto; }
+.datei .kopf { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+.datei .kopf b { font-size: 11.5pt; }
+.leise { color: var(--leise); }
+.vorschau { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.vorschau img { height: 120px; border-radius: 6px; border: 1px solid var(--linie); }
+table { width: 100%; border-collapse: collapse; font-size: 8.6pt; margin: 6px 0; }
+th { text-align: left; font-weight: 600; color: var(--leise); border-bottom: 1px solid var(--tinte); padding: 4px 6px; }
+td { border-bottom: 1px solid var(--linie); padding: 4px 6px; vertical-align: top; }
+tr { break-inside: avoid; }
+.punkt { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+.g-person { background: #6b4fc4; } .g-ort { background: #2a69c9; } .g-kontakt { background: #0c8577; }
+.g-konto { background: #b07015; } .g-nummer { background: #5d6b78; } .g-fahrzeug { background: #8f7a07; }
+.g-gesicht { background: #c23d66; } .g-hand { background: #3a4bb3; } .g-eigen { background: #44515a; }
+.etikett { display: inline-block; border-radius: 999px; padding: 0 8px; font-size: 8pt; font-weight: 600; }
+.e-unkenntlich { background: #14191c; color: #fff; } .e-sichtbar { background: #e3e8ea; color: #14191c; }
+.e-offen { background: #fbe7c6; }
+ul.haken { list-style: none; padding: 0; margin: 4px 0; }
+ul.haken li::before { content: "✓"; color: var(--gut); font-weight: 700; margin-right: 6px; }
+ul.rest li { color: var(--schlecht); }
+.mono { font-family: "Plex Mono", ui-monospace, monospace; font-size: 7.8pt; word-break: break-all; }
+.hinweis { margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--linie); color: var(--leise); font-size: 8.4pt; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="marke">{{ wortmarke|safe }}</div>
+    <h1>Prüfbericht</h1>
+  </div>
+  <div class="meta">Vorgang <b>{{ v.id }}</b><br>begonnen {{ begonnen }}<br>Gegenprobe {{ erstellt }}<br>Unkenntlich {{ version }} (Prototyp), lokal verarbeitet</div>
+</header>
+
+{% if reste == 0 %}
+<section class="ergebnis">
+  <svg class="zeichen" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="#14724f"/><path d="M15 27l7 7 15-16" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div><strong>Gegenprobe: 0 Reste</strong><span>Alle Prüfungen auf den Ergebnisdateien fanden nichts mehr, das unkenntlich sein sollte. Der Export ist freigegeben.</span></div>
+</section>
+{% else %}
+<section class="ergebnis gesperrt">
+  <svg class="zeichen" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="#a3262a"/><path d="M26 14v16M26 37v1" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>
+  <div><strong>Gegenprobe: {{ reste }} Rest{{ "e" if reste != 1 }}</strong><span>Der Export ist gesperrt, bis jeder Rest geprüft ist.</span></div>
+</section>
+{% endif %}
+
+<div class="zahlen">
+  <div><b>{{ dateien|length }}</b><span>Dateien</span></div>
+  <div><b>{{ dateien|sum(attribute="unkenntlich") }}</b><span>Stellen unkenntlich</span></div>
+  <div><b>{{ dateien|sum(attribute="sichtbar") }}</b><span>bewusst sichtbar gelassen</span></div>
+  <div><b>{{ dateien|map(attribute="metadaten")|map("length")|sum }}</b><span>Metadaten-Felder entfernt</span></div>
+</div>
+
+<h2>Dateien</h2>
+{% for d in dateien %}
+<section class="datei">
+  <div class="kopf"><b>{{ d.name }}</b><span class="leise">{{ d.art }} · {{ d.umfang }}</span></div>
+  {% if d.vorschauen %}<div class="vorschau">{% for b in d.vorschauen %}<img src="{{ b }}" alt="Ergebnis, verkleinert">{% endfor %}</div>
+  <div class="leise">Vorschau zeigt das Ergebnis, nicht das Original.</div>{% endif %}
+  <h3>Stellen ({{ d.stellen|length }})</h3>
+  <table>
+    <thead><tr><th>Nr.</th><th>Kategorie</th><th>Ort</th><th>Entscheidung</th><th>Vorschlag von</th></tr></thead>
+    <tbody>
+    {% for s in d.stellen %}
+      <tr><td class="mono">{{ s.nr }}</td><td><span class="punkt g-{{ s.gruppe }}"></span>{{ s.kategorie }}{% if s.modus %} ({{ s.modus }}){% endif %}</td>
+        <td>{{ s.ort }}</td>
+        <td><span class="etikett e-{{ s.entscheidung }}">{{ {"unkenntlich": "unkenntlich", "sichtbar": "bleibt sichtbar", "offen": "offen"}[s.entscheidung] }}</span>{% if s.begruendung %}<br><span class="leise">{{ s.begruendung }}</span>{% endif %}</td>
+        <td class="leise">{{ s.quelle }}<br>{{ s.grund }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if d.metadaten %}<h3>Entfernte Metadaten</h3>
+  <p>{% for m in d.metadaten %}{{ m.feld }} <span class="leise">({{ m.art }})</span>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+  <h3>Gegenprobe ({{ d.dauer }} s)</h3>
+  <ul class="haken">{% for p in d.pruefungen %}<li>{{ p }}</li>{% endfor %}</ul>
+  {% if d.reste %}<ul class="rest">{% for r in d.reste %}<li>{{ r.pruefung }}: {{ r.hinweis }}{% if r.seite is not none and r.seite is defined %}, Seite {{ r.seite + 1 }}{% endif %}{% if r.zeit is defined and r.zeit is not none %}, bei {{ r.zeit }} s{% endif %}</li>{% endfor %}</ul>
+  {% else %}<p><b>0 Reste.</b></p>{% endif %}
+  <h3>Prüfsummen (SHA-256)</h3>
+  <p class="mono">Eingang {{ d.sha_ein }}<br>Ergebnis {{ d.sha_aus }}</p>
+</section>
+{% endfor %}
+
+<h2>Modelle und Regeln</h2>
+<table>
+  <thead><tr><th>Aufgabe</th><th>Modell</th><th>Quelle</th><th>Lizenz</th></tr></thead>
+  <tbody>{% for m in modelle %}<tr><td>{{ m.aufgabe }}</td><td>{{ m.modell }}</td><td class="leise">{{ m.quelle }}</td><td>{{ m.lizenz }}</td></tr>{% endfor %}</tbody>
+</table>
+
+<h2>Protokoll</h2>
+<table>
+  <thead><tr><th style="width: 22%">Zeit</th><th style="width: 22%">Ereignis</th><th>Einzelheiten</th></tr></thead>
+  <tbody>{% for p in protokoll %}<tr><td>{{ p.zeit }}</td><td>{{ p.ereignis }}</td><td class="leise">{{ p.details }}</td></tr>{% endfor %}</tbody>
+</table>
+
+<p class="hinweis">Dieser Bericht enthält keine der unkenntlich gemachten Angaben im Klartext. Orte stehen als Seite und
+Rechteck in PDF-Punkten (Dokumente), in Pixeln (Bilder) oder als Zeitspanne (Videos). Unkenntlich ist ein Prototyp: Die
+Vorschläge ersetzen nicht den prüfenden Blick, und die Gegenprobe findet nur, was ihre Erkenner erkennen.</p>
+</body>
+</html>

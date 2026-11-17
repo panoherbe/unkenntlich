@@ -1,0 +1,9 @@
+daten/
+__pycache__/
+*.pyc
+.pytest_cache/
+messung/aus/
+.DS_Store
+pruefsatz/erzeugung/roh/*.png
+pruefsatz/erzeugung/roh/*.mp4
+pruefsatz/erzeugung/roh/szenen.txt

@@ -1,0 +1,712 @@
+{
+ "version": "0.1.0",
+ "beginn": "2026-11-17T04:31:07+01:00",
+ "rechner": "11th Gen Intel(R) Core(TM) i7-11700B @ 3.20GHz, 16 Threads",
+ "faeden": 8,
+ "grafikkarte": "keine genutzt (nur CPU)",
+ "netz": "ohne (network_mode: none)",
+ "modelle": [
+  {
+   "aufgabe": "Namen, Anschriften und weitere Angaben im Text",
+   "modell": "GLiNER2-PII multi",
+   "quelle": "fastino/gliner2-privacy-filter-PII-multi @1cb4166",
+   "lizenz": "Apache-2.0"
+  },
+  {
+   "aufgabe": "Nummern mit Prüfziffer (IBAN, Steuer-ID), Telefon, E-Mail, Kennzeichen",
+   "modell": "feste Regeln",
+   "quelle": "unkenntlich/text_regeln.py",
+   "lizenz": "AGPL-3.0-or-later"
+  },
+  {
+   "aufgabe": "Texterkennung in Scans und Fotos",
+   "modell": "Tesseract 5.5 mit tessdata_best Deutsch",
+   "quelle": "tesseract-ocr/tessdata_best @e12c65a",
+   "lizenz": "Apache-2.0"
+  },
+  {
+   "aufgabe": "Gesichter",
+   "modell": "YuNet (2026may)",
+   "quelle": "opencv/opencv_zoo @26cc381",
+   "lizenz": "MIT"
+  },
+  {
+   "aufgabe": "Personen und ihre Umrisse, Verfolgung im Video",
+   "modell": "YOLO26s-seg mit ByteTrack",
+   "quelle": "Ultralytics 8.4.215, Release v8.4.0",
+   "lizenz": "AGPL-3.0"
+  },
+  {
+   "aufgabe": "Kopfbereich aus Körperpunkten",
+   "modell": "YOLO26n-pose",
+   "quelle": "Ultralytics, Release v8.4.0",
+   "lizenz": "AGPL-3.0"
+  },
+  {
+   "aufgabe": "Kfz-Kennzeichen",
+   "modell": "YOLO26n Kennzeichen (Feinabstimmung)",
+   "quelle": "ishaqinu/yolo26n-license-plate-detection @b9162ec",
+   "lizenz": "AGPL-3.0"
+  },
+  {
+   "aufgabe": "Kfz-Kennzeichen, zweite Meinung in der Gegenprobe",
+   "modell": "YOLOv9-s Kennzeichen (open-image-models)",
+   "quelle": "ankandrew/open-image-models, Release assets",
+   "lizenz": "MIT"
+  },
+  {
+   "aufgabe": "Unterschriften und Stempel",
+   "modell": "RF-DETR Base (Feinabstimmung)",
+   "quelle": "bluecopa/rf-detr-stamp-signature-detector @c59fd4f",
+   "lizenz": "Apache-2.0"
+  }
+ ],
+ "tesseract": "5.5.0",
+ "dokumente": {
+  "dateien": [
+   {
+    "datei": "01-bescheid-scan-ocr.pdf",
+    "art": "scan_ocr",
+    "seiten": 2,
+    "angaben": 18,
+    "erkannt": 18,
+    "verpasst": [],
+    "vorschlaege": 28,
+    "fehlvorschlaege": 9,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "iban",
+     "telefon"
+    ],
+    "dauer_analyse_s": 12.69,
+    "dauer_schwaerzen_s": 0.73,
+    "dauer_gegenprobe_s": 4.07,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 4,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "02-vermieterin-digital.pdf",
+    "art": "digital",
+    "seiten": 1,
+    "angaben": 21,
+    "erkannt": 21,
+    "verpasst": [],
+    "vorschlaege": 21,
+    "fehlvorschlaege": 0,
+    "fehlvorschlaege_art": [],
+    "dauer_analyse_s": 0.54,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 1.33,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 13,
+    "metadaten_vorher": 8,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "03-arbeitgeber-scan.pdf",
+    "art": "scan",
+    "seiten": 1,
+    "angaben": 19,
+    "erkannt": 18,
+    "verpasst": [
+     {
+      "kategorie": "stempel",
+      "rechteck": [
+       218.93,
+       509.97,
+       366.69,
+       580.75
+      ],
+      "seite": 0,
+      "abgedeckt": 0.16
+     }
+    ],
+    "vorschlaege": 27,
+    "fehlvorschlaege": 8,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "telefon"
+    ],
+    "dauer_analyse_s": 2.98,
+    "dauer_schwaerzen_s": 0.35,
+    "dauer_gegenprobe_s": 2.37,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 4,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "04-bescheid-digital.pdf",
+    "art": "digital",
+    "seiten": 2,
+    "angaben": 21,
+    "erkannt": 21,
+    "verpasst": [],
+    "vorschlaege": 27,
+    "fehlvorschlaege": 6,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "iban",
+     "telefon"
+    ],
+    "dauer_analyse_s": 1.18,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 2.68,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 8,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "05-vermieterin-jpg.jpg",
+    "art": "jpg",
+    "seiten": 1,
+    "angaben": 21,
+    "erkannt": 21,
+    "verpasst": [],
+    "vorschlaege": 21,
+    "fehlvorschlaege": 0,
+    "fehlvorschlaege_art": [],
+    "dauer_analyse_s": 2.54,
+    "dauer_schwaerzen_s": 0.04,
+    "dauer_gegenprobe_s": 2.28,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 15,
+    "metadaten_vorher": 0
+   },
+   {
+    "datei": "06-arbeitgeber-digital.pdf",
+    "art": "digital",
+    "seiten": 1,
+    "angaben": 19,
+    "erkannt": 18,
+    "verpasst": [
+     {
+      "kategorie": "stempel",
+      "rechteck": [
+       218.27,
+       497.03,
+       365.67,
+       569.41
+      ],
+      "seite": 0,
+      "abgedeckt": 0.0
+     }
+    ],
+    "vorschlaege": 24,
+    "fehlvorschlaege": 5,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "telefon"
+    ],
+    "dauer_analyse_s": 0.62,
+    "dauer_schwaerzen_s": 0.03,
+    "dauer_gegenprobe_s": 1.57,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 8,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "07-bescheid-scan.pdf",
+    "art": "scan",
+    "seiten": 2,
+    "angaben": 18,
+    "erkannt": 18,
+    "verpasst": [],
+    "vorschlaege": 28,
+    "fehlvorschlaege": 9,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "iban",
+     "telefon"
+    ],
+    "dauer_analyse_s": 4.99,
+    "dauer_schwaerzen_s": 0.7,
+    "dauer_gegenprobe_s": 4.39,
+    "reste_erste_gegenprobe": 1,
+    "runden": 2,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 4,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "08-vermieterin-scan-ocr.pdf",
+    "art": "scan_ocr",
+    "seiten": 1,
+    "angaben": 21,
+    "erkannt": 21,
+    "verpasst": [],
+    "vorschlaege": 21,
+    "fehlvorschlaege": 0,
+    "fehlvorschlaege_art": [],
+    "dauer_analyse_s": 2.92,
+    "dauer_schwaerzen_s": 0.36,
+    "dauer_gegenprobe_s": 2.1,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 15,
+    "metadaten_vorher": 4,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "09-arbeitgeber-jpg.jpg",
+    "art": "jpg",
+    "seiten": 1,
+    "angaben": 19,
+    "erkannt": 18,
+    "verpasst": [
+     {
+      "kategorie": "stempel",
+      "rechteck": [
+       613.38,
+       1415.98,
+       1023.74,
+       1615.8
+      ],
+      "seite": 0,
+      "abgedeckt": 0.13
+     }
+    ],
+    "vorschlaege": 26,
+    "fehlvorschlaege": 8,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "telefon"
+    ],
+    "dauer_analyse_s": 2.46,
+    "dauer_schwaerzen_s": 0.03,
+    "dauer_gegenprobe_s": 2.32,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 0
+   },
+   {
+    "datei": "10-bescheid-digital.pdf",
+    "art": "digital",
+    "seiten": 2,
+    "angaben": 18,
+    "erkannt": 18,
+    "verpasst": [],
+    "vorschlaege": 27,
+    "fehlvorschlaege": 9,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "iban",
+     "telefon"
+    ],
+    "dauer_analyse_s": 1.22,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 2.79,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 8,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "11-vermieterin-digital.pdf",
+    "art": "digital",
+    "seiten": 1,
+    "angaben": 21,
+    "erkannt": 21,
+    "verpasst": [],
+    "vorschlaege": 21,
+    "fehlvorschlaege": 0,
+    "fehlvorschlaege_art": [],
+    "dauer_analyse_s": 0.62,
+    "dauer_schwaerzen_s": 0.01,
+    "dauer_gegenprobe_s": 1.37,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 15,
+    "metadaten_vorher": 8,
+    "metadaten_nachher_leer": true
+   },
+   {
+    "datei": "12-arbeitgeber-digital.pdf",
+    "art": "digital",
+    "seiten": 1,
+    "angaben": 19,
+    "erkannt": 18,
+    "verpasst": [
+     {
+      "kategorie": "stempel",
+      "rechteck": [
+       218.27,
+       494.71,
+       365.67,
+       571.72
+      ],
+      "seite": 0,
+      "abgedeckt": 0.0
+     }
+    ],
+    "vorschlaege": 23,
+    "fehlvorschlaege": 5,
+    "fehlvorschlaege_art": [
+     "anschrift",
+     "telefon"
+    ],
+    "dauer_analyse_s": 0.62,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 1.57,
+    "reste_erste_gegenprobe": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": [],
+    "zweite_pruefung_lesbar": 0,
+    "zweite_pruefung_gesucht": 11,
+    "metadaten_vorher": 8,
+    "metadaten_nachher_leer": true
+   }
+  ],
+  "kategorien": {
+   "iban": {
+    "gesamt": 16,
+    "erkannt": 16,
+    "richtige_kategorie": 16
+   },
+   "email": {
+    "gesamt": 20,
+    "erkannt": 20,
+    "richtige_kategorie": 20
+   },
+   "name": {
+    "gesamt": 60,
+    "erkannt": 60,
+    "richtige_kategorie": 60
+   },
+   "anschrift": {
+    "gesamt": 51,
+    "erkannt": 51,
+    "richtige_kategorie": 51
+   },
+   "aktenzeichen": {
+    "gesamt": 16,
+    "erkannt": 16,
+    "richtige_kategorie": 16
+   },
+   "steuer_id": {
+    "gesamt": 8,
+    "erkannt": 8,
+    "richtige_kategorie": 8
+   },
+   "telefon": {
+    "gesamt": 32,
+    "erkannt": 32,
+    "richtige_kategorie": 32
+   },
+   "geburtsdatum": {
+    "gesamt": 8,
+    "erkannt": 8,
+    "richtige_kategorie": 8
+   },
+   "unterschrift": {
+    "gesamt": 12,
+    "erkannt": 12,
+    "richtige_kategorie": 6
+   },
+   "stempel": {
+    "gesamt": 8,
+    "erkannt": 4,
+    "richtige_kategorie": 0
+   },
+   "kennzeichen": {
+    "gesamt": 4,
+    "erkannt": 4,
+    "richtige_kategorie": 4
+   }
+  },
+  "kontrolle": [
+   {
+    "datei": "01-bescheid-scan-ocr.pdf",
+    "reste": 40,
+    "textschicht": 20,
+    "bildpunkte": 19,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "02-vermieterin-digital.pdf",
+    "reste": 32,
+    "textschicht": 28,
+    "bildpunkte": 1,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "03-arbeitgeber-scan.pdf",
+    "reste": 21,
+    "textschicht": 0,
+    "bildpunkte": 20,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "04-bescheid-digital.pdf",
+    "reste": 28,
+    "textschicht": 23,
+    "bildpunkte": 2,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "06-arbeitgeber-digital.pdf",
+    "reste": 24,
+    "textschicht": 18,
+    "bildpunkte": 3,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "07-bescheid-scan.pdf",
+    "reste": 22,
+    "textschicht": 0,
+    "bildpunkte": 21,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "08-vermieterin-scan-ocr.pdf",
+    "reste": 48,
+    "textschicht": 25,
+    "bildpunkte": 22,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "10-bescheid-digital.pdf",
+    "reste": 25,
+    "textschicht": 20,
+    "bildpunkte": 2,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "11-vermieterin-digital.pdf",
+    "reste": 28,
+    "textschicht": 24,
+    "bildpunkte": 1,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   },
+   {
+    "datei": "12-arbeitgeber-digital.pdf",
+    "reste": 23,
+    "textschicht": 18,
+    "bildpunkte": 2,
+    "inhalt": true,
+    "metadaten": true,
+    "gesperrt": true
+   }
+  ]
+ },
+ "fotos": {
+  "dateien": [
+   {
+    "datei": "marktplatz.jpg",
+    "pixel": "1536 × 1024",
+    "vorschlaege": {
+     "gesicht": 9,
+     "kennzeichen": 2
+    },
+    "metadaten_vorher": [
+     "Kamerahersteller",
+     "Kameramodell",
+     "Software",
+     "Urheber (Artist)",
+     "Seriennummer",
+     "GPS-Position",
+     "Aufnahmezeit"
+    ],
+    "metadaten_nachher": false,
+    "dauer_analyse_s": 0.69,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 0.89,
+    "reste_erste_gegenprobe": 0,
+    "nur_auf_flaechen": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": []
+   },
+   {
+    "datei": "parkplatz.jpg",
+    "pixel": "1536 × 1024",
+    "vorschlaege": {
+     "gesicht": 5,
+     "kennzeichen": 3
+    },
+    "metadaten_vorher": [
+     "Kamerahersteller",
+     "Kameramodell",
+     "Software",
+     "Urheber (Artist)",
+     "Seriennummer",
+     "GPS-Position",
+     "Aufnahmezeit"
+    ],
+    "metadaten_nachher": false,
+    "dauer_analyse_s": 0.65,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 0.82,
+    "reste_erste_gegenprobe": 0,
+    "nur_auf_flaechen": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": []
+   },
+   {
+    "datei": "werkstatt.jpg",
+    "pixel": "1536 × 1024",
+    "vorschlaege": {
+     "gesicht": 3,
+     "kennzeichen": 1
+    },
+    "metadaten_vorher": [
+     "Kamerahersteller",
+     "Kameramodell",
+     "Software",
+     "Urheber (Artist)",
+     "Seriennummer",
+     "GPS-Position",
+     "Aufnahmezeit"
+    ],
+    "metadaten_nachher": false,
+    "dauer_analyse_s": 0.65,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 0.79,
+    "reste_erste_gegenprobe": 0,
+    "nur_auf_flaechen": 0,
+    "runden": 1,
+    "reste_gegenprobe": 0,
+    "reste_details": []
+   },
+   {
+    "datei": "flohmarkt.jpg",
+    "pixel": "1536 × 1024",
+    "vorschlaege": {
+     "gesicht": 48
+    },
+    "metadaten_vorher": [
+     "Kamerahersteller",
+     "Kameramodell",
+     "Software",
+     "Urheber (Artist)",
+     "Kommentar",
+     "Seriennummer",
+     "GPS-Position",
+     "Aufnahmezeit",
+     "Textfeld „comment“"
+    ],
+    "metadaten_nachher": false,
+    "dauer_analyse_s": 0.69,
+    "dauer_schwaerzen_s": 0.02,
+    "dauer_gegenprobe_s": 0.83,
+    "reste_erste_gegenprobe": 1,
+    "nur_auf_flaechen": 0,
+    "runden": 2,
+    "reste_gegenprobe": 0,
+    "reste_details": []
+   }
+  ]
+ },
+ "video": {
+  "datei": "fussgaengerzone.mp4",
+  "dauer_video_s": 10.12,
+  "bilder": 243,
+  "aufloesung": "1024 × 560",
+  "spuren": {
+   "person": 20,
+   "hintergrund": 2,
+   "gesicht": 4,
+   "kennzeichen": 3
+  },
+  "schnitte": [
+   81,
+   162
+  ],
+  "metadaten_vorher": [
+   "Urheber",
+   "Kommentar",
+   "Aufnahmezeit",
+   "Aufnahmeort (GPS)",
+   "location-eng",
+   "Titel",
+   "Tonspur (kann Stimmen und Namen enthalten)"
+  ],
+  "ton_nachher": false,
+  "tags_nachher": [],
+  "dauer_analyse_s": 49.7,
+  "dauer_schwaerzen_s": 1.3,
+  "dauer_gegenprobe_s": 28.2,
+  "reste_erste_gegenprobe": 0,
+  "nur_auf_flaechen_erste_gegenprobe": 0,
+  "runden": 1,
+  "reste_gegenprobe": 0,
+  "gegenprobe_bilder": {
+   "bilder": 243,
+   "von": 243
+  },
+  "reste_details": [],
+  "kontrolle": {
+   "ausgelassen": 24,
+   "bilder_mit_rest": 24,
+   "davon_ausgelassen": 24,
+   "reste": 156,
+   "gesperrt": true
+  }
+ },
+ "dauer_gesamt_s": 235.4
+}

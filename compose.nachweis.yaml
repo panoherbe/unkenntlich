@@ -1,0 +1,44 @@
+# Nachweis: Messlauf (Erkennung, Gegenprobe, Laufzeiten) ohne Netz, dann Oberfläche im Browser mit axe-core.
+#   docker compose -p unkenntlich-nachweis -f compose.nachweis.yaml run --rm messung
+#   docker compose -p unkenntlich-nachweis -f compose.nachweis.yaml up --build --abort-on-container-exit --exit-code-from oberflaeche app oberflaeche
+#   docker compose -p unkenntlich-nachweis -f compose.nachweis.yaml down -v
+services:
+  messung:
+    build: .
+    image: unkenntlich:0.1.0
+    network_mode: none
+    user: "${UID_GID:-1000:1000}"
+    working_dir: /app
+    environment:
+      HOME: /tmp
+    volumes:
+      - .:/app
+    command: ["sh", "-c", "python -m pytest -q -p no:cacheprovider tests > /tmp/tests.txt 2>&1; tail -3 /tmp/tests.txt; cp /tmp/tests.txt nachweis/tests.txt; python messung/messen.py"]
+
+  app:
+    image: unkenntlich:0.1.0
+    networks: [intern]
+    tmpfs:
+      - /daten:mode=1777
+
+  oberflaeche:
+    build:
+      context: messung
+      dockerfile: Dockerfile.browser
+    image: unkenntlich-browser:1.56.0
+    networks: [intern]
+    user: "${UID_GID:-1000:1000}"
+    working_dir: /app
+    environment:
+      HOME: /tmp
+      APP_URL: http://app:8080
+    volumes:
+      - .:/app
+    depends_on:
+      app:
+        condition: service_healthy
+    command: ["python", "messung/oberflaeche.py"]
+
+networks:
+  intern:
+    internal: true
