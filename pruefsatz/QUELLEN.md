@@ -53,8 +53,8 @@ Aufnahmeort); im Flohmarkt-Foto zusätzlich ein Kommentar. Lizenz der Fotos: **C
 `fussgaengerzone.mp4`: drei Szenen (Fußgängerzone mit Lieferwagen „XZ DL 314“ und Schaufensterpuppe, Platz mit
 Bronzestatue, Haltestelle), erzeugt mit **Vimoo-1.0-Lite** (Vimoo-AI, Oktober 2026,
 [Hugging Face](https://huggingface.co/Vimoo-AI/Vimoo-1.0-Lite), Stand `9016df4`, Lizenz Apache-2.0) über
-[`erzeugung/video.py`](erzeugung/video.py). Jede Szene beginnt mit einem Standbild aus MOSS-Image (oben) und wird vom
-Videomodell bewegt. Bausteine, die Vimoo dafür lädt: Qwen2.5-VL-7B-Instruct (Text, Apache-2.0), Glyph-SDXL-v2 (Schrift
+[`erzeugung/video.py`](erzeugung/video.py). Jede Szene beginnt mit einem Standbild aus MOSS-Image-SFT (oben) und wird vom
+Videomodell bewegt. Bausteine, die Vimoo-1.0-Lite dafür lädt: Qwen2.5-VL-7B-Instruct (Text, Apache-2.0), Glyph-SDXL-v2 (Schrift
 im Bild; Code Apache-2.0 laut [GitHub](https://github.com/AIGText/Glyph-ByT5), die Modellseite nennt keine Lizenz),
 google/byt5-small (Apache-2.0), der VAE aus Wan2.2-TI2V-5B (Apache-2.0) und SigLIP so400m (Apache-2.0). Beschreibungen,
 Startwerte, Auflösung und Rechenzeiten: [`erzeugung/roh/video.json`](erzeugung/roh/video.json).

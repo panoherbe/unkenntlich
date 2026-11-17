@@ -1,0 +1,33 @@
+# Größe des Docker-Images (Unkenntlich 0.1.0)
+#
+# Gemessen am 17.11.2026 um 05:15 Uhr (deutsche Zeit), direkt nach `docker compose build` aus diesem Stand;
+# Linux, Docker 29.1.3. 1 GB = 1.000.000.000 Byte. Beim ersten Bauen werden Bibliotheken
+# und Modelle geladen; die Größe auf der Platte ist die Summe unten, nicht die Menge, die über die Leitung kommt.
+
+$ docker image inspect unkenntlich:0.1.0 --format '{{.Size}}'
+4488330279
+  -> 4,5 GB
+
+$ docker run --rm --network none --entrypoint du unkenntlich:0.1.0 -sb /modelle
+1687482255	/modelle
+  -> 1,7 GB Modelle
+
+$ docker run --rm --network none --entrypoint sh unkenntlich:0.1.0 -c 'du -sb /modelle/* | sort -rn'
+1244444426	/modelle/gliner2-pii
+368825120	/modelle/rfdetr-stempel-unterschrift.pth
+28612350	/modelle/yolo-v9-s-608-kennzeichen.onnx
+23467933	/modelle/yolo26s-seg.pt
+8628461	/modelle/tessdata
+7878574	/modelle/yolo26n-pose.pt
+5395653	/modelle/yolo26n-kennzeichen.pt
+229738	/modelle/face_detection_yunet_2026may.onnx
+
+$ docker history unkenntlich:0.1.0 --format '{{.Size}}  {{.CreatedBy}}'   (Schichten ab 1 MB, gekürzt)
+11.6MB  COPY pruefsatz /app/pruefsatz # buildkit
+1.69GB  RUN /bin/sh -c python /tmp/modelle_laden.py …
+1.14GB  RUN /bin/sh -c pip install -r /tmp/requireme…
+1.01GB  RUN /bin/sh -c pip install torch==2.15.0 tor…
+515MB  RUN /bin/sh -c apt-get update  && apt-get in…
+35.7MB  RUN /bin/sh -c set -eux;   savedAptMark="$(a…
+3.81MB  RUN /bin/sh -c set -eux;  apt-get update;  a…
+78.9MB  # debian.sh --arch 'amd64' out/ 'trixie' '@1…

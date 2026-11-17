@@ -9,7 +9,7 @@ Eine Szene je Aufruf: Mit zwei Szenen in einem Prozess reichten 62 GB Hauptspeic
 Modell: Vimoo-1.0-Lite (Vimoo-AI, Oktober 2026, Apache-2.0), Bild und Text zu Video, Ordner /hf/vimoo-1.0-lite
 (`hf download Vimoo-AI/Vimoo-1.0-Lite`, dazu die Bausteine aus `modular_model_index.json`: Qwen2.5-VL-7B-Instruct als
 Text-Kodierer, Glyph-ByT5 für Schrift im Bild, VAE aus Wan2.2-TI2V-5B, SigLIP für das Startbild). Jede Szene beginnt
-mit einem Standbild aus bilder.py (MOSS-Image), damit Personen und erfundene Kennzeichen feststehen. Auf einer Grafikkarte mit 12 GB
+mit einem Standbild aus bilder.py (MOSS-Image-SFT), damit Personen und erfundene Kennzeichen feststehen. Auf einer Grafikkarte mit 12 GB
 werden Text-Kodierer und Videomodell blockweise ein- und ausgelagert; weniger Schritte und eine kleinere Auflösung als
 die Voreinstellung (50 Schritte, 1280 × 720), damit eine Szene in Minuten statt Stunden fertig ist. Feste Startwerte;
 die Ergebnisse stehen unter CC0 1.0 (pruefsatz/QUELLEN.md). metadaten.py setzt die Szenen zum Testvideo zusammen.

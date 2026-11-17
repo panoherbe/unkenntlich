@@ -62,7 +62,7 @@ docker compose up -d --build
 ```
 
 Dann http://localhost:8080 öffnen und **„Beispiele laden“** klicken. Das erste Bauen lädt Bibliotheken und die freien
-Modelle (Image etwa 4,5 GB, davon 1,6 GB Modelle) und dauert je nach Leitung einige Minuten; danach braucht
+Modelle (Image 4,5 GB, davon 1,7 GB Modelle, [gemessen](nachweis/image-groesse.txt)) und dauert je nach Leitung einige Minuten; danach braucht
 Unkenntlich kein Netz mehr. Die Erkennung der drei Beispiele dauert auf einem Rechner ohne Grafikkarte etwa eine
 Minute (Messprotokoll: Schreiben 13 s, Foto 0,7 s, Video 50 s).
 
@@ -98,22 +98,22 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
 <details>
 <summary>Die Sätze im Video (aufklappen)</summary>
 
-| ab | Satz (klein darunter) |
-|---|---|
-| 0:00 | Titelkarte: „Personen und ihre Daten unkenntlich machen.“ Dokumente, Fotos und Videos, auf dem eigenen Rechner, mit Gegenprobe. |
-| 0:04 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. (Alles bleibt auf diesem Rechner, ohne Internet.) |
-| 0:10 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. (Erkennung auf der CPU: 63 s für alle drei Dateien (Messlauf), das Video braucht am längsten.) |
-| 0:19 | Jede Stelle mit Grund. Sie entscheiden. (Name, Anschrift, IBAN, Steuer-ID, Unterschrift: jede Stelle einzeln.) |
-| 0:24 | Jede Stelle mit Grund. Sie entscheiden. (Die Zentrale der Behörde bleibt sichtbar; der Grund steht im Prüfbericht.) |
-| 0:30 | Jede Stelle mit Grund. Sie entscheiden. (Den Stempel hat das Modell nicht gefunden: einen Rahmen selbst ziehen.) |
-| 0:36 | Jede Stelle mit Grund. Sie entscheiden. (Angesehen: Die übrigen Vorschläge werden unkenntlich.) |
-| 0:41 | Gesichter und Kennzeichen im Foto. (Eine Statue ist keine Person: sichtbar lassen.) |
-| 0:47 | Im Video: eine Karte je Person, über alle Einzelbilder. (Wer eingewilligt hat, bleibt sichtbar (erzeugte Person, Einwilligung simuliert).) |
-| 0:55 | Gegenprobe: alles wird auf dem Ergebnis erneut gesucht. (Findet sie noch etwas, bleibt der Export gesperrt.) |
-| 1:02 | Gegenprobe: alles wird auf dem Ergebnis erneut gesucht. (0 Reste: Export freigegeben. Gegenprobe auf der CPU: 35 s (Messlauf).) |
-| 1:09 | Vorher, nachher und ein Prüfbericht. (Der Bericht nennt jede Stelle und jede Entscheidung, aber keine der Daten.) |
-| 1:15 | Messkarte vom 17.11.2026: 215 von 215 Angaben im Text vorgeschlagen, 12 erfundene Schreiben (simuliert), mit Unterschriften und Stempeln 231 von 235; 0 Reste laut Gegenprobe in 12 Schreiben, 4 Fotos und 1 Video (Fotos und Video erzeugt); 4,9 s Erkennung je Sekunde Video (1024 × 560 Bildpunkte), nur CPU; 0 Verstöße (axe-core), hell und dunkel, 14 Stellen zur Handprüfung. |
-| 1:24 | Schlusskarte: Selbst ausprobieren, github.com/panoherbe/unkenntlich; `docker compose up`, dann im Browser, ohne Internet. Code AGPL-3.0-or-later; Schreiben erfunden (simuliert, CC0); Foto und Video erzeugt mit MOSS-Image und Vimoo 1.0 Lite (Apache-2.0): keine echten Personen, keine echten Kennzeichen (CC0); Panagiotis Herbe. |
+| ab | Satz | klein darunter |
+|---|---|---|
+| 0:00 | Titelkarte: „Personen und ihre Daten unkenntlich machen.“ | Dokumente, Fotos und Videos, auf dem eigenen Rechner, mit Gegenprobe. |
+| 0:04 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. | Alles bleibt auf diesem Rechner, ohne Internet. |
+| 0:10 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. | Erkennung auf der CPU: 63 s für alle drei Dateien (Messlauf), das Video braucht am längsten. |
+| 0:19 | Jede Stelle mit Grund. Sie entscheiden. | Name, Anschrift, IBAN, Steuer-ID, Unterschrift: jede Stelle einzeln. |
+| 0:24 | Jede Stelle mit Grund. Sie entscheiden. | Die Zentrale der Behörde bleibt sichtbar; der Grund steht im Prüfbericht. |
+| 0:30 | Jede Stelle mit Grund. Sie entscheiden. | Den Stempel hat das Modell nicht gefunden: einen Rahmen selbst ziehen. |
+| 0:36 | Jede Stelle mit Grund. Sie entscheiden. | Angesehen: Die übrigen Vorschläge werden unkenntlich. |
+| 0:41 | Gesichter und Kennzeichen im Foto. | Eine Statue ist keine Person: sichtbar lassen. |
+| 0:47 | Im Video: eine Karte je Person, über alle Einzelbilder. | Wer eingewilligt hat, bleibt sichtbar (erzeugte Person, Einwilligung simuliert). |
+| 0:55 | Gegenprobe: alles wird auf dem Ergebnis erneut gesucht. | Findet sie noch etwas, bleibt der Export gesperrt. |
+| 1:02 | Gegenprobe: alles wird auf dem Ergebnis erneut gesucht. | 0 Reste: Export freigegeben. Gegenprobe auf der CPU: 35 s (Messlauf). |
+| 1:09 | Vorher, nachher und ein Prüfbericht. | Der Bericht nennt jede Stelle und jede Entscheidung, aber keine der Daten. |
+| 1:15 | Messkarte: „Gemessen am 17.11.2026“ | 215 von 215 Angaben im Text vorgeschlagen, 12 erfundene Schreiben (simuliert), mit Unterschriften und Stempeln 231 von 235; 0 Reste laut Gegenprobe in 12 Schreiben, 4 Fotos und 1 Video (Fotos und Video erzeugt); 4,9 s Erkennung je Sekunde Video (1024 × 560 Bildpunkte), nur CPU; 0 Verstöße (axe-core), hell und dunkel, 14 Stellen zur Handprüfung. |
+| 1:24 | Schlusskarte: „Selbst ausprobieren“ | github.com/panoherbe/unkenntlich; `docker compose up`, dann im Browser, ohne Internet. Code AGPL-3.0-or-later; Schreiben erfunden (simuliert, CC0); Foto und Video erzeugt mit MOSS-Image-SFT und Vimoo-1.0-Lite (Apache-2.0): keine echten Personen, keine echten Kennzeichen (CC0); Panagiotis Herbe. |
 
 </details>
 
@@ -176,8 +176,8 @@ Nicht gewählt: **EgoBlur** (Meta, Apache-2.0) ist für Gesichter und Kennzeiche
 Eingabe einer E-Mail-Adresse auf der Seite des Herstellers; ein frei nachbaubarer Container kann sie nicht laden. Ein
 großes Bild-Sprach-Modell für Unterschriften und Stempel wäre auf Rechnern ohne Grafikkarte zu langsam.
 
-Nur für die Testdateien, nicht in Unkenntlich: Die Fotos und das Video des Prüfsatzes sind mit MOSS-Image und Vimoo 1.0
-Lite erzeugt (Oktober 2026, je Apache-2.0, auf einer Grafikkarte); Einzelheiten in [`pruefsatz/QUELLEN.md`](pruefsatz/QUELLEN.md).
+Nur für die Testdateien, nicht in Unkenntlich: Die Fotos und das Video des Prüfsatzes sind mit MOSS-Image-SFT und
+Vimoo-1.0-Lite erzeugt (Oktober 2026, je Apache-2.0, auf einer Grafikkarte); Einzelheiten in [`pruefsatz/QUELLEN.md`](pruefsatz/QUELLEN.md).
 
 ## Lizenz
 
