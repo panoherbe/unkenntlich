@@ -1,6 +1,6 @@
 """Erzeugt den Prüfsatz der Dokumente: zwölf erfundene deutsche Schreiben (simuliert), dazu die Wahrheit je Datei.
 
-    docker run --rm --network none -u "$(id -u):$(id -g)" -v "$PWD":/app -w /app unkenntlich:0.1.0 python pruefsatz/erzeugen.py
+    docker run --rm --network none -u "$(id -u):$(id -g)" -v "$PWD":/app -w /app unkenntlich:0.2.0 python pruefsatz/erzeugen.py
 
 Alle Personen, Anschriften, Nummern, Unterschriften und Stempel sind erfunden (Zufallsgenerator mit festem Startwert);
 IBAN und Steuer-ID haben gültig gerechnete Prüfziffern, damit die Regeln greifen können. Bankleitzahlen beginnen mit 0
@@ -406,6 +406,12 @@ def bauen() -> int:
     for i, (vorlage, art) in enumerate(plan, start=1):
         p = person(rng, rng.random() < 0.5)
         zweite = person(rng, True)
+        # Zwei Personen eines Schreibens tragen nie denselben Familiennamen (in Schreiben 02 zog der Zufall für
+        # Mieterin und Vermieterin einmal denselben Namen). Nachgezogen wird mit eigenem Startwert, damit die übrigen
+        # Schreiben unverändert bleiben.
+        nachziehen = random.Random(START * 100 + i)
+        while zweite["nachname"] == p["nachname"]:
+            zweite = person(nachziehen, True)
         if vorlage == "bescheid":
             html, bilder, werte = vorlage_bescheid(p, zweite, f"WG-{rng.randint(100, 999)}/{rng.randint(1000, 9999)}-26", rng)
         elif vorlage == "vermieterin":

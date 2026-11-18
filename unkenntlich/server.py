@@ -106,7 +106,7 @@ def seite(vid: str, did: str, n: int, ergebnis: bool = False):
     v = _v(vid)
     d = _d(v, did)
     if ergebnis:
-        _freigegeben(v)   # auch eine Vorschau des Ergebnisses ist ein Export
+        _freigegeben(v, d)   # auch eine Vorschau des Ergebnisses ist ein Export
     pfad = d.get("ausgabe") if ergebnis else d["pfad"]
     if not pfad:
         raise HTTPException(404, "Noch kein Ergebnis")
@@ -122,7 +122,7 @@ def video_datei(vid: str, did: str, ergebnis: bool = False, format: str = "mp4")
     v = _v(vid)
     d = _d(v, did)
     if ergebnis:
-        _freigegeben(v)
+        _freigegeben(v, d)
     pfad = d.get("ausgabe") if ergebnis else d["pfad"]
     if d["art"] != "video" or not pfad:
         raise HTTPException(404)
@@ -195,17 +195,30 @@ def reste(vid: str):
     return vorgang.oeffentlich(v)
 
 
-def _freigegeben(v: dict) -> None:
+@app.post("/api/vorgang/{vid}/datei/{did}/ausnehmen")
+def ausnehmen(vid: str, did: str):
+    v = _v(vid)
+    _d(v, did)
+    try:
+        vorgang.ausnehmen(v, did)
+    except ValueError as e:
+        raise HTTPException(409, str(e))
+    return vorgang.oeffentlich(v)
+
+
+def _freigegeben(v: dict, d: dict | None = None) -> None:
     g = v.get("gegenprobe") or {}
     if g.get("status") != "fertig" or g.get("reste") != 0:
         raise HTTPException(423, "Export gesperrt: Die Gegenprobe muss ohne Reste abgeschlossen sein.")
+    if d is not None and d.get("ausgenommen"):
+        raise HTTPException(404, "Diese Datei ist vom Export ausgenommen und wird nicht herausgegeben.")
 
 
 @app.get("/api/vorgang/{vid}/ergebnis/{did}")
 def ergebnis(vid: str, did: str):
     v = _v(vid)
-    _freigegeben(v)
     d = _d(v, did)
+    _freigegeben(v, d)
     return FileResponse(d["ausgabe"], filename=Path(d["ausgabe"]).name.split("-", 1)[1])
 
 
@@ -229,14 +242,17 @@ def export(vid: str):
     v = _v(vid)
     _freigegeben(v)
     puffer = io.BytesIO()
+    heraus = [d for d in v["dateien"] if not d.get("ausgenommen")]   # ausgenommene Dateien bleiben draußen
     with zipfile.ZipFile(puffer, "w", zipfile.ZIP_DEFLATED) as z:
-        for d in v["dateien"]:
+        for d in heraus:
             z.write(d["ausgabe"], Path(d["ausgabe"]).name.split("-", 1)[1])
         for art in ("pdf", "html"):
             p = vorgang.ordner(vid) / "ausgabe" / f"pruefbericht.{art}"
             if p.exists():
                 z.write(p, f"pruefbericht.{art}")
-    vorgang.protokoll(v, "Export heruntergeladen", f"{len(v['dateien'])} Dateien und Prüfbericht als ZIP")
+    ohne = len(v["dateien"]) - len(heraus)
+    vorgang.protokoll(v, "Export heruntergeladen", f"{len(heraus)} Dateien und Prüfbericht als ZIP"
+                      + (f" ({ohne} vom Export ausgenommen)" if ohne else ""))
     vorgang.speichern(v)
     return Response(puffer.getvalue(), media_type="application/zip",
                     headers={"Content-Disposition": f'attachment; filename="unkenntlich-{vid}.zip"'})

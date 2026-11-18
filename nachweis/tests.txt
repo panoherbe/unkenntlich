@@ -1,4 +1,4 @@
-.................                                                        [100%]
+...................                                                      [100%]
 =============================== warnings summary ===============================
 unkenntlich/server.py:41
   /app/unkenntlich/server.py:41: DeprecationWarning: 
@@ -27,4 +27,4 @@ tests/test_api.py::test_ablauf
     m = RFDETRBase(pretrain_weights=str(ORDNER / "rfdetr-stempel-unterschrift.pth"), num_classes=3)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-17 passed, 4 warnings in 14.93s
+19 passed, 4 warnings in 15.35s

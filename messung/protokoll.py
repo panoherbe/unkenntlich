@@ -196,8 +196,8 @@ def schreiben(w: dict, ziel: Path) -> None:
     a("- Die Gegenprobe nutzt dieselben Erkennerfamilien wie die Erkennung (plus eine zweite Meinung für Kennzeichen und "
       "Augen aus Körperpunkten). Was keiner davon erkennt, findet auch die Gegenprobe nicht; darum bleibt der Blick des "
       "Menschen auf jede Seite Pflicht.")
-    a("- Gemessen nur auf der CPU (die Grafikkarte des Rechners war nicht eingebunden), ohne andere Last während des "
-      "Laufs; andere Rechner sind schneller oder langsamer.")
+    a("- Gemessen nur auf der CPU (die Grafikkarte des Rechners war nicht eingebunden); andere Programme auf dem "
+      "Rechner liefen weiter. Andere Rechner sind schneller oder langsamer.")
     a("- Fotos und Video sind erzeugt, nicht aufgenommen. Echte Aufnahmen haben andere Lichtverhältnisse, Unschärfe "
       "und Gedränge; die Zahlen zeigen den Ablauf, keine Trefferquote für echte Bilder.")
     ziel.write_text("\n".join(t) + "\n", encoding="utf-8")

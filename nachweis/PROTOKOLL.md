@@ -1,6 +1,6 @@
 # Messprotokoll
 
-Messlauf vom 17.11.2026, 04:31 Uhr (deutsche Zeit), Unkenntlich 0.1.0. Erzeugt von [`messung/messen.py`](../messung/messen.py) über `compose.nachweis.yaml`; Rohdaten in [`messwerte.json`](messwerte.json), Bilder in [`bilder/`](bilder/).
+Messlauf vom 18.11.2026, 19:01 Uhr (deutsche Zeit), Unkenntlich 0.2.0. Erzeugt von [`messung/messen.py`](../messung/messen.py) über `compose.nachweis.yaml`; Rohdaten in [`messwerte.json`](messwerte.json), Bilder in [`bilder/`](bilder/).
 
 **Rechner:** 11th Gen Intel(R) Core(TM) i7-11700B @ 3.20GHz, 16 Threads; 8 Rechenfäden; Grafikkarte: keine genutzt (nur CPU); Netz: ohne (network_mode: none). Tesseract 5.5.0. Gesamtdauer des Laufs 3,9 min.
 
@@ -13,7 +13,7 @@ Messlauf vom 17.11.2026, 04:31 Uhr (deutsche Zeit), Unkenntlich 0.1.0. Erzeugt v
 | Eingesetzte Angaben in 12 Schreiben (simuliert), vor jeder Bestätigung vorgeschlagen | Angaben im Text: **215 von 215 (100,0 %)**; mit Unterschriften und Stempeln: **231 von 235 (98,3 %)**; auf 16 Seiten |
 | Vorschläge ohne eingesetzte Angabe (z. B. Anschrift und Zentrale der Behörde, die der Mensch sichtbar lässt) | 59, also 3,7 je Seite |
 | Gegenprobe nach dem Unkenntlichmachen, 12 Schreiben | erste Gegenprobe: 1 Rest in 1 Datei (Export gesperrt); Reste übernommen und bestätigt, danach **0 Reste** |
-| Zweite, unabhängige Prüfung: eingesetzte Angaben im Textauszug und in neuer Texterkennung des Ergebnisses gesucht | 0 von 146 noch lesbar |
+| Zweite, unabhängige Prüfung: eingesetzte Angaben im Textauszug und in neuer Texterkennung des Ergebnisses gesucht | 0 von 148 noch lesbar |
 | Kontrollversuch „nur schwarz übermalt“ (typischer Fehler), 10 PDFs | Gegenprobe sperrt in 10 von 10; Inhalt unter den Kästen gefunden in 10 von 10 (Text in der Textschicht in 8, Bildpunkte unter den Flächen in 10) |
 | Fotos (4, erzeugt): Gegenprobe | erste Gegenprobe 1 Rest, übernommen und bestätigt, danach **0 Reste**; kein Fund verworfen; Metadaten danach: keine |
 | Video (10,1 s, 1024 × 560, 243 Einzelbilder, erzeugt): Spuren | 20 Personen, 2 Personen im Hintergrund, 4 Gesichter ohne erkannte Person (oft sehr kurz), 3 Kennzeichen |
@@ -24,12 +24,12 @@ Messlauf vom 17.11.2026, 04:31 Uhr (deutsche Zeit), Unkenntlich 0.1.0. Erzeugt v
 
 | Was | Dauer |
 |---|---|
-| Erkennen, digitales PDF | 0,5–0,6 s je Seite |
-| Erkennen, Scan oder Foto eines Schreibens (mit Texterkennung) | 2,5–6,3 s je Seite |
+| Erkennen, digitales PDF | 0,6 s je Seite |
+| Erkennen, Scan oder Foto eines Schreibens (mit Texterkennung) | 2,4–6,3 s je Seite |
 | Gegenprobe, Schreiben | 1,3–2,4 s je Seite |
-| Erkennen, Foto (1536 × 1024 px) | 0,7 s |
-| Erkennen, Video (1024 × 560) | 50 s für 10,1 s Video, also 4,9 s je Videosekunde |
-| Unkenntlich machen, Video | 1 s |
+| Erkennen, Foto (1536 × 1024 px) | 0,6–0,7 s |
+| Erkennen, Video (1024 × 560) | 49 s für 10,1 s Video, also 4,8 s je Videosekunde |
+| Unkenntlich machen, Video | 2 s |
 | Gegenprobe, Video | 28 s, also 2,8 s je Videosekunde |
 
 Die Modelle werden beim ersten Aufruf geladen; die erste Datei eines Laufs ist deshalb einige Sekunden langsamer.
@@ -56,15 +56,15 @@ Eine Angabe zählt als erkannt, wenn Vorschläge mindestens 60 % ihrer Fläche a
 
 | Datei | Art | Seiten | erkannt | verpasst | Fehlvorschläge | Erkennen | Gegenprobe | Reste (erste → zuletzt) | zweite Prüfung lesbar |
 |---|---|---:|---:|---|---:|---:|---:|---:|---:|
-| 01-bescheid-scan-ocr.pdf | Scan mit Textschicht | 2 | 18 von 18 | – | 9 | 12,7 s | 4,1 s | 0 → 0 | 0 von 11 |
-| 02-vermieterin-digital.pdf | digitales PDF | 1 | 21 von 21 | – | 0 | 0,5 s | 1,3 s | 0 → 0 | 0 von 13 |
-| 03-arbeitgeber-scan.pdf | Scan (PDF, nur Bild) | 1 | 18 von 19 | Stempel | 8 | 3,0 s | 2,4 s | 0 → 0 | 0 von 11 |
-| 04-bescheid-digital.pdf | digitales PDF | 2 | 21 von 21 | – | 6 | 1,2 s | 2,7 s | 0 → 0 | 0 von 11 |
-| 05-vermieterin-jpg.jpg | Foto eines Schreibens (JPG) | 1 | 21 von 21 | – | 0 | 2,5 s | 2,3 s | 0 → 0 | 0 von 15 |
-| 06-arbeitgeber-digital.pdf | digitales PDF | 1 | 18 von 19 | Stempel | 5 | 0,6 s | 1,6 s | 0 → 0 | 0 von 11 |
-| 07-bescheid-scan.pdf | Scan (PDF, nur Bild) | 2 | 18 von 18 | – | 9 | 5,0 s | 4,4 s | 1 → 0 | 0 von 11 |
+| 01-bescheid-scan-ocr.pdf | Scan mit Textschicht | 2 | 18 von 18 | – | 9 | 12,6 s | 4,0 s | 0 → 0 | 0 von 11 |
+| 02-vermieterin-digital.pdf | digitales PDF | 1 | 21 von 21 | – | 0 | 0,6 s | 1,3 s | 0 → 0 | 0 von 15 |
+| 03-arbeitgeber-scan.pdf | Scan (PDF, nur Bild) | 1 | 18 von 19 | Stempel | 8 | 2,9 s | 2,4 s | 0 → 0 | 0 von 11 |
+| 04-bescheid-digital.pdf | digitales PDF | 2 | 21 von 21 | – | 6 | 1,1 s | 2,7 s | 0 → 0 | 0 von 11 |
+| 05-vermieterin-jpg.jpg | Foto eines Schreibens (JPG) | 1 | 21 von 21 | – | 0 | 2,6 s | 2,3 s | 0 → 0 | 0 von 15 |
+| 06-arbeitgeber-digital.pdf | digitales PDF | 1 | 18 von 19 | Stempel | 5 | 0,6 s | 1,7 s | 0 → 0 | 0 von 11 |
+| 07-bescheid-scan.pdf | Scan (PDF, nur Bild) | 2 | 18 von 18 | – | 9 | 4,9 s | 4,3 s | 1 → 0 | 0 von 11 |
 | 08-vermieterin-scan-ocr.pdf | Scan mit Textschicht | 1 | 21 von 21 | – | 0 | 2,9 s | 2,1 s | 0 → 0 | 0 von 15 |
-| 09-arbeitgeber-jpg.jpg | Foto eines Schreibens (JPG) | 1 | 18 von 19 | Stempel | 8 | 2,5 s | 2,3 s | 0 → 0 | 0 von 11 |
+| 09-arbeitgeber-jpg.jpg | Foto eines Schreibens (JPG) | 1 | 18 von 19 | Stempel | 8 | 2,4 s | 2,3 s | 0 → 0 | 0 von 11 |
 | 10-bescheid-digital.pdf | digitales PDF | 2 | 18 von 18 | – | 9 | 1,2 s | 2,8 s | 0 → 0 | 0 von 11 |
 | 11-vermieterin-digital.pdf | digitales PDF | 1 | 21 von 21 | – | 0 | 0,6 s | 1,4 s | 0 → 0 | 0 von 15 |
 | 12-arbeitgeber-digital.pdf | digitales PDF | 1 | 18 von 19 | Stempel | 5 | 0,6 s | 1,6 s | 0 → 0 | 0 von 11 |
@@ -77,7 +77,7 @@ Verpasste Angaben zieht der simulierte Mensch als eigenen Bereich nach; erst dan
 |---|---|---|---|---:|---:|---:|
 | marktplatz.jpg | 1536 × 1024 px | 9 Gesichter, 2 Kennzeichen | Kamerahersteller, Kameramodell, Software, Urheber (Artist), Seriennummer, GPS-Position, Aufnahmezeit | 0,7 s | 0,9 s | 0 → 0 |
 | parkplatz.jpg | 1536 × 1024 px | 5 Gesichter, 3 Kennzeichen | Kamerahersteller, Kameramodell, Software, Urheber (Artist), Seriennummer, GPS-Position, Aufnahmezeit | 0,7 s | 0,8 s | 0 → 0 |
-| werkstatt.jpg | 1536 × 1024 px | 3 Gesichter, 1 Kennzeichen | Kamerahersteller, Kameramodell, Software, Urheber (Artist), Seriennummer, GPS-Position, Aufnahmezeit | 0,7 s | 0,8 s | 0 → 0 |
+| werkstatt.jpg | 1536 × 1024 px | 3 Gesichter, 1 Kennzeichen | Kamerahersteller, Kameramodell, Software, Urheber (Artist), Seriennummer, GPS-Position, Aufnahmezeit | 0,6 s | 0,8 s | 0 → 0 |
 | flohmarkt.jpg | 1536 × 1024 px | 48 Gesichter | Kamerahersteller, Kameramodell, Software, Urheber (Artist), Kommentar, Seriennummer, GPS-Position, Aufnahmezeit, Textfeld „comment“ | 0,7 s | 0,8 s | 1 → 0 |
 
 Für die Fotos gibt es keine vollständige Wahrheit; der simulierte Mensch bestätigt jeden Vorschlag. Von Hand angesehen (Bild [`foto-ergebnis.jpg`](bilder/foto-ergebnis.jpg)): Im Marktplatz-Foto sind die Gesichter der drei Personen vorn, fünf kleine Gesichter im Hintergrund, das Gesicht der Bronzestatue und beide Kennzeichen vorgeschlagen und abgedeckt; die Statue würde ein Mensch sichtbar lassen (kein Personenbezug), der Rundgang zeigt das.
@@ -92,5 +92,5 @@ Eine Trefferquote für das Video ist nicht gemessen: Dafür müsste jedes Gesich
 
 - Die Schreiben sind erfunden und folgen drei Vorlagen; echte Akten sind vielfältiger. Die Zahlen zeigen, dass der Ablauf funktioniert, nicht, wie gut er auf beliebigen Unterlagen ist.
 - Die Gegenprobe nutzt dieselben Erkennerfamilien wie die Erkennung (plus eine zweite Meinung für Kennzeichen und Augen aus Körperpunkten). Was keiner davon erkennt, findet auch die Gegenprobe nicht; darum bleibt der Blick des Menschen auf jede Seite Pflicht.
-- Gemessen nur auf der CPU (die Grafikkarte des Rechners war nicht eingebunden), ohne andere Last während des Laufs; andere Rechner sind schneller oder langsamer.
+- Gemessen nur auf der CPU (die Grafikkarte des Rechners war nicht eingebunden); andere Programme auf dem Rechner liefen weiter. Andere Rechner sind schneller oder langsamer.
 - Fotos und Video sind erzeugt, nicht aufgenommen. Echte Aufnahmen haben andere Lichtverhältnisse, Unschärfe und Gedränge; die Zahlen zeigen den Ablauf, keine Trefferquote für echte Bilder.

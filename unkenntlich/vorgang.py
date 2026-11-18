@@ -30,6 +30,10 @@ _vorgaenge: dict[str, dict] = {}
 _auftraege: "queue.Queue[tuple]" = queue.Queue()
 
 
+def _mal(n: int, eins: str, mehr: str) -> str:
+    return f"{n} {eins if n == 1 else mehr}"
+
+
 def jetzt() -> str:
     return dt.datetime.now(ZONE).isoformat(timespec="seconds")
 
@@ -125,8 +129,9 @@ def bereit(v: dict) -> tuple[bool, str]:
         return False, "Noch keine Datei abgelegt."
     if any(d["status"] != "bereit" for d in v["dateien"]):
         return False, "Die Erkennung läuft noch."
-    offen_seiten = sum(1 for d in v["dateien"] for s in d["seiten"] if not s["geprueft"])
-    offen_stellen = sum(1 for s in v["stellen"] if s["entscheidung"] == "offen")
+    aktiv = {d["id"] for d in v["dateien"] if not d.get("ausgenommen")}
+    offen_seiten = sum(1 for d in v["dateien"] if d["id"] in aktiv for s in d["seiten"] if not s["geprueft"])
+    offen_stellen = sum(1 for s in v["stellen"] if s["entscheidung"] == "offen" and s["datei"] in aktiv)
     if offen_seiten or offen_stellen:
         teile = []
         if offen_seiten:
@@ -311,9 +316,10 @@ def ausgabe_pfad(v: dict, d: dict) -> Path:
 def _gegenprobe(v: dict, kontrolle: dict | None) -> None:
     g = v["gegenprobe"]
     gesamt = 0
-    n = len(v["dateien"])
+    aktiv = [d for d in v["dateien"] if not d.get("ausgenommen")]   # ausgenommene Dateien gibt es nicht heraus
+    n = max(1, len(aktiv))
     t_alles = time.time()
-    for k, d in enumerate(v["dateien"]):
+    for k, d in enumerate(aktiv):
         stellen = [s for s in v["stellen"] if s["datei"] == d["id"]]
         best = [s for s in stellen if s["entscheidung"] == "unkenntlich"]
         sicht = [s for s in stellen if s["entscheidung"] == "sichtbar"]
@@ -372,18 +378,28 @@ def reste_uebernehmen(v: dict) -> int:
 
     Ein Rest ohne Ort (etwa Metadaten oder Anmerkungen, die das Schwärzen nicht entfernt hat) lässt sich nicht als
     Bereich übernehmen. Damit der Export nicht für immer gesperrt bleibt, wird ein solches Dokument beim nächsten
-    Durchlauf aus Seitenbildern neu aufgebaut: ohne Textschicht, ohne alles, was man nicht sieht."""
+    Durchlauf aus Seitenbildern neu aufgebaut: ohne Textschicht, ohne alles, was man nicht sieht.
+
+    Fotos und Videos: Ab der zweiten Übernahme in derselben Datei werden Reste großzügig abgedeckt (siehe
+    `foto.rest_stellen` und `video.spuren_aus_resten`). Bleibt danach noch etwas, ist der letzte Ausweg `ausnehmen`."""
     g = v.get("gegenprobe") or {}
     neu = 0
     with _sperre:
         for did, erg in (g.get("ergebnisse") or {}).items():
             d = datei(v, did)
-            if not d:
+            if not d or d.get("ausgenommen") or not erg.get("reste"):
                 continue
+            d["runden"] = d.get("runden", 0) + 1   # wie oft Reste dieser Datei übernommen wurden
+            grosszuegig = d["art"] in ("foto", "video") and d["runden"] >= 2
+            if grosszuegig:
+                protokoll(v, "Großzügiger abdecken", f"{d['name']}: auch nach {_mal(d['runden'] - 1, 'Übernahme', 'Übernahmen')} "
+                          f"{_mal(len(erg['reste']), 'Rest', 'Reste')}; die neuen Vorschläge sind doppelt so groß und mit "
+                          "angrenzenden Flächen zusammengelegt")
             if d["art"] == "video":
                 pfad = ordner(v["id"]) / "analyse" / did / "spuren.json"
                 spuren = json.loads(pfad.read_text())
-                neue = video.spuren_aus_resten(erg["reste"], spuren, d["video"]["fps"], d["video"]["bilder"])
+                neue = video.spuren_aus_resten(erg["reste"], spuren, d["video"]["fps"], d["video"]["bilder"],
+                                               grosszuegig=grosszuegig, schnitte=d["video"].get("schnitte"))
                 for st in neue:
                     v["zaehler"] += 1
                     st.update({"id": f"s{v['zaehler']}", "datei": did, "entscheidung": "offen", "neu": True})
@@ -392,6 +408,17 @@ def reste_uebernehmen(v: dict) -> int:
                 pfad.write_text(json.dumps(spuren))
                 if neue:
                     d["seiten"][0]["geprueft"] = False
+            elif d["art"] == "foto":
+                best = [s for s in v["stellen"] if s["datei"] == did and s["entscheidung"] == "unkenntlich"]
+                seite = d["seiten"][0]
+                for st in foto.rest_stellen(erg["reste"], best, grosszuegig, seite["breite"], seite["hoehe"]):
+                    v["zaehler"] += 1
+                    kat = st["kategorie"] if st["kategorie"] in kategorien.KATEGORIEN else "eigener_bereich"
+                    v["stellen"].append({**st, "id": f"s{v['zaehler']}", "datei": did, "kategorie": kat,
+                                         "quelle": "Gegenprobe", "sicherheit": 1.0, "seite": 0, "text": None,
+                                         "entscheidung": "offen", "modus": None, "neu": True})
+                    seite["geprueft"] = False
+                    neu += 1
             else:
                 ohne_ort = [r for r in erg["reste"] if r.get("rechteck") is None]
                 if ohne_ort and d["art"] == "dokument" and not d.get("neu_aufbauen"):
@@ -415,6 +442,32 @@ def reste_uebernehmen(v: dict) -> int:
         protokoll(v, "Reste übernommen", f"{neu} Reste als neue Vorschläge zum Prüfen")
         speichern(v)
     return neu
+
+
+def ausnehmen(v: dict, did: str) -> None:
+    """Letzter Ausweg, wenn die Gegenprobe in einer Datei auch nach Übernahmen noch Reste findet: Die Datei wird nicht
+    herausgegeben. Ihr Ergebnis kommt nicht in den Export und ist nicht abrufbar; der Prüfbericht nennt sie mit ihren
+    Resten. Sind die übrigen Dateien ohne Rest, wird ihr Export frei. Nur nach mindestens einer Übernahme."""
+    with _sperre:
+        d = datei(v, did)
+        g = v.get("gegenprobe") or {}
+        erg = (g.get("ergebnisse") or {}).get(did) or {}
+        if not d or g.get("status") != "fertig" or not erg.get("reste") or d.get("ausgenommen"):
+            raise ValueError("Ausnehmen geht nur für eine Datei, in der die letzte Gegenprobe Reste fand.")
+        if d.get("runden", 0) < 1:
+            raise ValueError("Erst die Reste übernehmen und erneut prüfen; ausnehmen ist der letzte Ausweg.")
+        d["ausgenommen"] = {"zeit": jetzt(), "runden": d.get("runden", 0), "reste": erg["reste"],
+                            "pruefungen": erg.get("pruefungen", [])}
+        g["reste"] = sum(len(e.get("reste", [])) for k, e in g["ergebnisse"].items()
+                         if not (datei(v, k) or {}).get("ausgenommen"))
+        protokoll(v, "Vom Export ausgenommen", f"{d['name']}: {_mal(len(erg['reste']), 'Rest', 'Reste')} nach "
+                  f"{_mal(d.get('runden', 0), 'Übernahme', 'Übernahmen')}; die Datei wird nicht herausgegeben"
+                  + (" – Export der übrigen Dateien freigegeben" if g["reste"] == 0 else ""))
+        if g["reste"] == 0:
+            v["phase"] = "fertig"
+        speichern(v)
+    from . import bericht
+    bericht.schreiben(v)
 
 
 # --- Hintergrund ------------------------------------------------------------------------------------------------

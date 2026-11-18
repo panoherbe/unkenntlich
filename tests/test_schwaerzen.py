@@ -4,6 +4,7 @@ import json
 import numpy as np
 import piexif
 import pymupdf
+import pytest
 from PIL import Image
 
 from unkenntlich import dokument, foto, gegenprobe
@@ -206,3 +207,79 @@ def test_schnitt_im_video_beginnt_neue_spuren():
     v.schnitt(1)
     v.schritt(1, [((101, 100, 141, 140), 0.9)])
     assert len(v.spuren) == 2
+
+
+def test_hartnaeckiger_rest_im_foto(tmp_path, monkeypatch):
+    """Ausweg für Reste, die nach Übernahmen bleiben: Die zweite Übernahme deckt großzügig ab (doppelt so groß, mit der
+    angrenzenden Fläche zusammengelegt). Bleibt dann noch etwas, wird die Datei vom Export ausgenommen: nicht im ZIP,
+    kein Ergebnis und keine Vorschau abrufbar, im Prüfbericht vermerkt; der Export der übrigen Dateien wird frei."""
+    import io
+    import zipfile
+
+    from fastapi.testclient import TestClient
+
+    from unkenntlich import server, vorgang
+    monkeypatch.setattr(vorgang, "DATEN", tmp_path)
+    v = vorgang.neu()
+    aus_ordner = vorgang.ordner(v["id"]) / "ausgabe"
+    brief = kleines_pdf(tmp_path / "brief.pdf")
+    dokument.schwaerzen(brief, aus_ordner / "d1-brief-unkenntlich.pdf", stellen_zu(brief, NAME, IBAN))
+    bild = tmp_path / "foto.jpg"
+    Image.fromarray(np.full((200, 300, 3), 180, np.uint8)).save(bild)
+    gesicht = {"id": "s1", "datei": "d2", "kategorie": "gesicht", "rechtecke": [[100, 50, 160, 120]], "seite": 0,
+               "entscheidung": "unkenntlich", "quelle": "YuNet", "grund": "Gesicht erkannt", "sicherheit": 0.9, "text": None}
+    foto.schwaerzen(bild, aus_ordner / "d2-foto-unkenntlich.jpg", [gesicht])
+    for did, name, art, pfad, seite in (("d1", "brief.pdf", "dokument", brief, {"breite": 595, "hoehe": 842}),
+                                        ("d2", "foto.jpg", "foto", bild, {"breite": 300, "hoehe": 200})):
+        v["dateien"].append({"id": did, "name": name, "art": art, "pfad": str(pfad), "groesse": pfad.stat().st_size,
+                             "sha256": vorgang.sha256(pfad), "status": "bereit", "metadaten": [],
+                             "ausgabe": str(next(aus_ordner.glob(f"{did}-*"))), "seiten": [{**seite, "geprueft": True}]})
+    v["stellen"].append(gesicht)
+    rest = {"seite": 0, "rechteck": [150, 60, 170, 80], "kategorie": "gesicht", "hinweis": "Augen liegen außerhalb jeder "
+            "deckenden Fläche", "pruefung": "Augen aus Körperpunkten (YOLO26-pose)"}
+
+    def gegenprobe_mit_rest():
+        v["gegenprobe"] = {"status": "fertig", "reste": 1, "ende": vorgang.jetzt(), "ergebnisse": {
+            "d1": {"reste": [], "pruefungen": ["Textschicht durchsucht"]},
+            "d2": {"reste": [dict(rest)], "pruefungen": ["Gesichter erneut gesucht"]}}}
+
+    gegenprobe_mit_rest()
+    with pytest.raises(ValueError):
+        vorgang.ausnehmen(v, "d2")                      # erst übernehmen: Ausnehmen ist der letzte Ausweg
+    assert vorgang.reste_uebernehmen(v) == 1
+    erste = v["stellen"][-1]
+    assert erste["rechtecke"] == [rest["rechteck"]] and "großzügig" not in erste["grund"]
+    erste["entscheidung"] = "unkenntlich"
+    gegenprobe_mit_rest()
+    assert vorgang.reste_uebernehmen(v) == 1
+    zweite = v["stellen"][-1]
+    assert zweite["rechtecke"] == [[100.0, 50.0, 180.0, 120.0]], zweite["rechtecke"]   # Rest verdoppelt, mit Gesicht vereint
+    assert "großzügig" in zweite["grund"] and any(p["ereignis"] == "Großzügiger abdecken" for p in v["protokoll"])
+    zweite["entscheidung"] = "unkenntlich"
+    gegenprobe_mit_rest()
+    with TestClient(server.app) as c:
+        vid = v["id"]
+        assert c.get(f"/api/vorgang/{vid}/export.zip").status_code == 423
+        antwort = c.post(f"/api/vorgang/{vid}/datei/d2/ausnehmen")
+        assert antwort.status_code == 200 and antwort.json()["gegenprobe"]["reste"] == 0
+        namen = zipfile.ZipFile(io.BytesIO(c.get(f"/api/vorgang/{vid}/export.zip").content)).namelist()
+        assert "brief-unkenntlich.pdf" in namen and not any("foto" in n for n in namen), namen
+        for pfad in ("ergebnis/d2", "datei/d2/seite/0?ergebnis=true"):
+            assert c.get(f"/api/vorgang/{vid}/{pfad}").status_code == 404, pfad
+        assert c.get(f"/api/vorgang/{vid}/ergebnis/d1").status_code == 200
+        html = c.get(f"/api/vorgang/{vid}/bericht.html").text
+        assert "Nicht herausgegeben" in html and "nicht herausgegeben" in html and "Augen liegen" in html
+    assert any(p["ereignis"] == "Vom Export ausgenommen" for p in v["protokoll"])
+
+
+def test_video_rest_nach_mehreren_runden_grosszuegig():
+    """Im Video deckt die zweite Übernahme eines Rests doppelt so groß ab und länger, aber nicht über einen Schnitt."""
+    from unkenntlich import video
+    reste = [{"bild": n, "rechteck": [100, 100, 120, 120]} for n in (40, 41, 42)]
+    normal, gross = {}, {}
+    video.spuren_aus_resten(reste, normal, 24.0, 240)
+    st = video.spuren_aus_resten(reste, gross, 24.0, 240, grosszuegig=True, schnitte=[60])[0]
+    b_normal, b_gross = next(iter(normal.values()))["boxen"], next(iter(gross.values()))["boxen"]
+    breite = lambda b: b["41"][2] - b["41"][0]  # noqa: E731
+    assert breite(b_gross) >= 1.4 * breite(b_normal) and len(b_gross) > len(b_normal)
+    assert max(int(k) for k in b_gross) < 60 and "großzügig" in st["grund"]

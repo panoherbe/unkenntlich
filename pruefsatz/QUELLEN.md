@@ -1,6 +1,6 @@
 # Quellen und Lizenzen des Prüfsatzes
 
-Stand 17.11.2026. Jede Datei mit Herkunft, Lizenz und was geändert wurde. **Im ganzen Prüfsatz ist keine echte Person
+Stand 18.11.2026. Jede Datei mit Herkunft, Lizenz und was geändert wurde. **Im ganzen Prüfsatz ist keine echte Person
 und kein echtes Kennzeichen zu sehen:** Die Schreiben sind erfunden, Fotos und Video sind mit offenen Modellen erzeugt.
 
 ## Schreiben (`dokumente/`): simuliert
@@ -8,6 +8,9 @@ und kein echtes Kennzeichen zu sehen:** Die Schreiben sind erfunden, Fotos und V
 Zwölf erfundene deutsche Schreiben, erzeugt von [`erzeugen.py`](erzeugen.py) mit festem Zufallsstartwert. Alle
 Personen, Anschriften, Kennzeichen, Akten- und Kundennummern, Unterschriften und Stempel sind **erfunden**;
 Ähnlichkeiten mit echten Personen wären Zufall. „Stadt Musterhausen“ und „Beispiel Logistik GmbH“ gibt es nicht.
+Zwei Personen eines Schreibens tragen nie denselben Familiennamen: In Schreiben 02 hatte der Zufall Mieterin und
+Vermieterin denselben Namen gegeben; seit 18.11.2026 zieht `erzeugen.py` dann mit eigenem Startwert nach (die übrigen
+elf Schreiben sind inhaltlich unverändert).
 
 - **Telefonnummern** stammen aus den Bereichen, die die Bundesnetzagentur für Medien freihält und niemandem zuteilt
   („Drama Numbers“, [Mitteilung 148/2021](https://www.bundesnetzagentur.de/DE/Fachthemen/Telekommunikation/Nummerierung/_DL/mittlg148_2021.pdf)):

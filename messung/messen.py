@@ -199,8 +199,10 @@ def fotos() -> dict:
         gp = gegenprobe.foto_pruefen(aus, best, [], original=pfad)
         t3 = time.perf_counter()
         reste_1, nur_1, runden = len(gp["reste"]), gp.get("nur_ergebnis", 0), 1
-        while gp["reste"] and runden < 3:
-            best = best + [{"seite": 0, "kategorie": r["kategorie"], "rechtecke": [r["rechteck"]]} for r in gp["reste"] if r.get("rechteck")]
+        while gp["reste"] and runden < 3:   # wie „Reste übernehmen“ in der Oberfläche: ab der zweiten Übernahme großzügig
+            seite = erg["seiten"][0]
+            best = best + [{**st, "seite": 0} for st in
+                           foto.rest_stellen(gp["reste"], best, runden >= 2, seite["breite"], seite["hoehe"])]
             foto.schwaerzen(pfad, aus, best)
             gp = gegenprobe.foto_pruefen(aus, best, [], original=pfad)
             runden += 1
@@ -244,7 +246,8 @@ def film() -> dict:
     while gp["reste"] and runden < 3:
         # simulierter Mensch: übernimmt jeden Rest als neuen Vorschlag und bestätigt ihn
         best += [{**s, "entscheidung": "unkenntlich"} for s in
-                 video.spuren_aus_resten(gp["reste"], spuren, erg["video"]["fps"], erg["video"]["bilder"])]
+                 video.spuren_aus_resten(gp["reste"], spuren, erg["video"]["fps"], erg["video"]["bilder"],
+                                         grosszuegig=runden >= 2, schnitte=erg["video"].get("schnitte"))]
         video.schwaerzen(pfad, aus, best, spuren)
         gp = gegenprobe.video_pruefen(aus, best, [], spuren, original=pfad)
         runden += 1

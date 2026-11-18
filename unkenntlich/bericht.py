@@ -84,7 +84,9 @@ def daten(v: dict) -> dict:
     freigegeben = g.get("status") == "fertig" and g.get("reste") == 0
     dateien = []
     for d in v["dateien"]:
-        erg = (g.get("ergebnisse") or {}).get(d["id"], {})
+        ohne = d.get("ausgenommen")   # vom Export ausgenommen: Reste der letzten Gegenprobe vor dem Ausnehmen
+        erg = {"reste": ohne["reste"], "pruefungen": ohne["pruefungen"]} if ohne else \
+            (g.get("ergebnisse") or {}).get(d["id"], {})
         stellen = []
         for s in sorted((x for x in v["stellen"] if x["datei"] == d["id"]),
                         key=lambda x: (x.get("seite", 0), (x.get("zeit") or {}).get("von", 0),
@@ -101,15 +103,17 @@ def daten(v: dict) -> dict:
                                    f"{d['seiten'][0]['breite']} × {d['seiten'][0]['hoehe']} px" if d["art"] == "foto" else
                                    f"{_zahl(d['video']['dauer'])} s, {d['video']['bilder']} Einzelbilder, "
                                    f"{d['video']['breite']} × {d['video']['hoehe']} px"),
-                        "sha_ein": d["sha256"], "sha_aus": erg.get("sha256_aus", "–"),
+                        "sha_ein": d["sha256"], "sha_aus": "nicht herausgegeben" if ohne else erg.get("sha256_aus", "–"),
                         "groesse_ein": d["groesse"], "groesse_aus": erg.get("groesse_aus"),
                         "stellen": stellen, "unkenntlich": sum(1 for s in stellen if s["entscheidung"] == "unkenntlich"),
                         "sichtbar": sum(1 for s in stellen if s["entscheidung"] == "sichtbar"),
                         "metadaten": d["metadaten"], "reste": erg.get("reste", []),
-                        "pruefungen": erg.get("pruefungen", []), "vorschauen": _vorschauen(d, freigegeben),
+                        "pruefungen": erg.get("pruefungen", []), "vorschauen": _vorschauen(d, freigegeben and not ohne),
+                        "ausgenommen": {"zeit": _datum(ohne["zeit"]), "runden": ohne["runden"]} if ohne else None,
                         "dauer": _zahl(erg.get("dauer_schwaerzen", 0) + erg.get("dauer_gegenprobe", 0))})
     return {"v": v, "version": __version__, "erstellt": _datum(g.get("ende") or v["erstellt"]),
             "begonnen": _datum(v["erstellt"]), "reste": g.get("reste"), "dateien": dateien,
+            "ausgenommen": [d["name"] for d in v["dateien"] if d.get("ausgenommen")],
             "protokoll": [{**p, "zeit": _datum(p["zeit"])} for p in v["protokoll"]],
             "modelle": modelle.VERZEICHNIS, "albert": _schrift("albert-sans.woff2"), "mono": _schrift("plex-mono.woff2"),
             "wortmarke": (HIER / "web" / "bilder" / "wortmarke-hell.svg").read_text()}

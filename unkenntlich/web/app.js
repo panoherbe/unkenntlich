@@ -56,11 +56,21 @@ function el(tag, attr = {}, ...kinder) {
 const breite = (e, anteil) => { e.style.width = `${Math.round(anteil * 100)}%`; return e; };
 const zahl = (x, n = 0) => Number(x).toLocaleString("de-DE", { minimumFractionDigits: n, maximumFractionDigits: n });
 const groesse = (b) => b > 1e6 ? `${zahl(b / 1e6, 1)} MB` : `${zahl(b / 1e3, 0)} KB`;
+const mal = (n, eins, mehr) => `${zahl(n)} ${n === 1 ? eins : mehr}`;
 const uhr = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
-function melden(text) {
+// Meldungen: Was die Seite ohnehin zeigt (bestätigt, Bereich gezogen), hören nur Bildschirmleser („leise“). Sichtbar
+// erscheint eine Meldung über der Leiste unten, nie über Knöpfen oder Inhalt der Leiste, und verschwindet nach 4 s.
+function melden(text, leise = false) {
+  if (leise) {
+    const l = $("#vorlesen"); l.textContent = "";
+    setTimeout(() => { l.textContent = text; }, 60);
+    return;
+  }
   const m = $("#meldung");
   m.textContent = text; m.hidden = false;
-  clearTimeout(melden.t); melden.t = setTimeout(() => { m.hidden = true; }, 5200);
+  const leiste = $("#leiste")?.getBoundingClientRect();
+  m.style.bottom = leiste && leiste.top < innerHeight ? `${Math.round(innerHeight - leiste.top + 12)}px` : "";
+  clearTimeout(melden.t); melden.t = setTimeout(() => { m.hidden = true; }, 4200);
 }
 async function api(pfad, opt = {}) {
   const antwort = await fetch(`/api${pfad}`, opt);
@@ -94,6 +104,7 @@ async function start() {
   $$("#schritte button").forEach((b) => b.addEventListener("click", () => wechseln(b.dataset.schritt)));
   $("#marke").addEventListener("click", (e) => { e.preventDefault(); wechseln("ablegen"); });
   $("#loeschen").addEventListener("click", allesLoeschen);
+  $("#meldung").addEventListener("click", () => { $("#meldung").hidden = true; });
   zeichnen();
   abfragenWennNoetig();
 }
@@ -136,6 +147,7 @@ function erlaubt(schritt) {
 
 function wechseln(schritt) {
   if (!erlaubt(schritt)) return;
+  $("#meldung").hidden = true;
   z.ansicht = schritt; z.gewaehlt = null; z.zeichnen = false;
   zeichnen();
   $("#inhalt").focus({ preventScroll: true });
@@ -247,8 +259,9 @@ async function beispiele() {
 }
 
 // --- 2 Prüfen ----------------------------------------------------------------------------------------------------
+const imExport = (d) => !d?.ausgenommen;
 function aktuelleDatei() {
-  if (!z.datei || !dateiVon(z.datei)) z.datei = (z.v.dateien.find((d) => d.seiten.some((s) => !s.geprueft)) || z.v.dateien[0])?.id;
+  if (!z.datei || !dateiVon(z.datei)) z.datei = (z.v.dateien.find((d) => imExport(d) && d.seiten.some((s) => !s.geprueft)) || z.v.dateien[0])?.id;
   return dateiVon(z.datei);
 }
 
@@ -258,11 +271,11 @@ function zeichnePruefen(main) {
   if (z.seite >= d.seiten.length) z.seite = 0;
   const reiter = el("div", { class: "reiter" }, el("h2", { id: "dateien-titel" }, "Dateien"),
     el("div", { class: "reiter-liste", role: "tablist", "aria-labelledby": "dateien-titel" }, ...z.v.dateien.map((x) => {
-      const offen = x.seiten.filter((s) => !s.geprueft).length;
-      return el("button", { type: "button", role: "tab", "aria-selected": String(x.id === d.id), class: offen ? "" : "fertig",
+      const offen = imExport(x) ? x.seiten.filter((s) => !s.geprueft).length : 0;
+      return el("button", { type: "button", role: "tab", "aria-selected": String(x.id === d.id), class: offen || !imExport(x) ? "" : "fertig",
         onclick: () => { z.datei = x.id; z.seite = 0; z.gewaehlt = null; z.zeichnen = false; zeichnen(); } },
         el("span", { class: "art", html: SYMBOL[x.art] }),
-        el("span", {}, el("b", {}, x.name), el("small", {}, offen ? (x.art === "dokument" ? `${offen} von ${x.seiten.length} Seiten offen` : "noch ansehen") : "angesehen ✓")));
+        el("span", {}, el("b", {}, x.name), el("small", {}, !imExport(x) ? "nicht im Export" : offen ? (x.art === "dokument" ? `${offen} von ${x.seiten.length} Seiten offen` : "noch ansehen") : "angesehen ✓")));
     })));
   const buehne = el("section", { class: "buehne", "aria-label": "Ansicht" });
   const tafel = el("aside", { class: "tafel", id: "tafel", "aria-label": "Vorschläge" });
@@ -272,8 +285,8 @@ function zeichnePruefen(main) {
 
 function leiste() {
   const v = z.v;
-  const offenSeiten = v.dateien.reduce((n, d) => n + d.seiten.filter((s) => !s.geprueft).length, 0);
-  const offenStellen = v.stellen.filter((s) => s.entscheidung === "offen").length;
+  const offenSeiten = v.dateien.filter(imExport).reduce((n, d) => n + d.seiten.filter((s) => !s.geprueft).length, 0);
+  const offenStellen = v.stellen.filter((s) => s.entscheidung === "offen" && imExport(dateiVon(s.datei))).length;
   const text = v.bereit_fuer_gegenprobe ? el("p", {}, el("b", {}, "Alles angesehen. "), "Jetzt werden die Dateien unkenntlich gemacht und erneut geprüft.")
     : el("p", {}, el("b", {}, "Noch offen: "), `${offenSeiten} Seite(n) bzw. Datei(en) ansehen, ${offenStellen} Vorschläge ohne Entscheidung.`);
   return el("div", { class: "leiste", id: "leiste" }, text,
@@ -412,7 +425,7 @@ function bereichZiehen(svg, d) {
     const r = [Math.min(a.x, p.x), Math.min(a.y, p.y), Math.max(a.x, p.x), Math.max(a.y, p.y)];
     if (r[2] - r[0] < 3 || r[3] - r[1] < 3) return;
     try { z.v = await post(`/vorgang/${vid()}/bereich`, { datei: d.id, seite: z.seite, rechteck: r }); } catch (err) { melden(err.message); return; }
-    z.zeichnen = false; zeichnen(); melden("Eigener Bereich hinzugefügt: wird unkenntlich.");
+    z.zeichnen = false; zeichnen(); melden("Eigener Bereich hinzugefügt: wird unkenntlich.", true);
   });
 }
 
@@ -422,11 +435,11 @@ async function seiteBestaetigen(d) {
   const naechste = dneu.seiten.findIndex((s) => !s.geprueft);
   if (naechste >= 0) z.seite = naechste;
   else {
-    const andere = z.v.dateien.find((x) => x.seiten.some((s) => !s.geprueft));
+    const andere = z.v.dateien.find((x) => imExport(x) && x.seiten.some((s) => !s.geprueft));
     if (andere) { z.datei = andere.id; z.seite = andere.seiten.findIndex((s) => !s.geprueft); }
   }
   z.gewaehlt = null; zeichnen();
-  melden(z.v.bereit_fuer_gegenprobe ? "Alles angesehen. Die Gegenprobe kann starten." : "Bestätigt.");
+  melden(z.v.bereit_fuer_gegenprobe ? "Alles angesehen. Die Gegenprobe kann starten." : "Bestätigt.", true);
 }
 
 // Video
@@ -581,12 +594,12 @@ function karte(d, s, nr) {
     istPerson
       ? el("div", { class: "wahl", role: "group", "aria-label": `Entscheidung für ${name}` },
         wahlKnopf("Gesicht", s.entscheidung === "unkenntlich" && s.modus !== "person", () => entscheiden([{ id: s.id, entscheidung: "unkenntlich", modus: "gesicht" }]), "u"),
-        wahlKnopf("Ganz", s.entscheidung === "unkenntlich" && s.modus === "person", () => entscheiden([{ id: s.id, entscheidung: "unkenntlich", modus: "person" }]), "u"),
+        wahlKnopf("Ganze Person", s.entscheidung === "unkenntlich" && s.modus === "person", () => entscheiden([{ id: s.id, entscheidung: "unkenntlich", modus: "person" }]), "u"),
         wahlKnopf("Sichtbar", s.entscheidung === "sichtbar", () => entscheiden([{ id: s.id, entscheidung: "sichtbar" }])))
       : el("div", { class: "wahl", role: "group", "aria-label": `Entscheidung für ${name}` },
         wahlKnopf("Unkenntlich", s.entscheidung === "unkenntlich", () => entscheiden([{ id: s.id, entscheidung: "unkenntlich" }]), "u"),
         wahlKnopf("Sichtbar", s.entscheidung === "sichtbar", () => entscheiden([{ id: s.id, entscheidung: "sichtbar" }]))),
-    s.entscheidung === "sichtbar" ? el("div", { class: "text" }, begruendungWahl(s)) : null);
+    s.entscheidung === "sichtbar" ? el("div", { class: "grundwahl" }, begruendungWahl(s)) : null);
   li.style.setProperty("--farbe", farbe(s.kategorie));
   return li;
 }
@@ -627,18 +640,30 @@ function zeichneGegenprobe(main) {
   karte.append(el("h1", {}, "Gegenprobe"), urteil);
   const liste = el("ul", { class: "pruefliste" });
   for (const d of z.v.dateien) {
+    if (!imExport(d)) {
+      liste.append(el("li", {}, el("span", { class: "ok aus", html: SYMBOL.schloss }), el("div", {}, el("b", {}, d.name),
+        el("div", { class: "leise" }, "vom Export ausgenommen: wird nicht herausgegeben; der Prüfbericht nennt die Reste"))));
+      continue;
+    }
     const e = g.ergebnisse[d.id]; if (!e) continue;
     liste.append(el("li", {}, el("span", { class: "ok", html: SYMBOL.haken }), el("div", {}, el("b", {}, d.name), el("div", { class: "leise" }, e.pruefungen.join(" · ")))));
   }
   karte.append(el("h2", { class: "unsichtbar" }, "Was geprüft wurde"), liste);
   if (!ok) {
     const reste = [];
-    for (const d of z.v.dateien) for (const r of g.ergebnisse[d.id]?.reste || [])
+    for (const d of z.v.dateien.filter(imExport)) for (const r of g.ergebnisse[d.id]?.reste || [])
       reste.push(el("li", {}, el("b", {}, `${d.name}: `), `${r.hinweis} (${r.pruefung}${r.seite != null && d.art === "dokument" ? `, Seite ${r.seite + 1}` : ""}${r.zeit != null ? `, bei ${zahl(r.zeit, 1)} s` : ""})`));
-    const ohneOrt = z.v.dateien.some((d) => d.art === "dokument" && (g.ergebnisse[d.id]?.reste || []).some((r) => !r.rechteck));
+    const ohneOrt = z.v.dateien.some((d) => imExport(d) && d.art === "dokument" && (g.ergebnisse[d.id]?.reste || []).some((r) => !r.rechteck));
+    // Reste trotz Übernahme: ab der zweiten Übernahme deckt Unkenntlich in Fotos und Videos großzügiger ab; bleibt dann
+    // noch etwas, ist der letzte Ausweg, die Datei nicht herauszugeben (nie, den Rest zu übergehen).
+    const hartnaeckig = z.v.dateien.filter((d) => imExport(d) && (d.runden || 0) >= 1 && (g.ergebnisse[d.id]?.reste || []).length);
     karte.append(el("h2", {}, "Gefundene Reste"), el("ul", { class: "reste" }, ...reste.slice(0, 40)),
       ...(ohneOrt ? [el("p", { class: "leise" }, "Reste ohne Ort (etwa Metadaten oder Anmerkungen) lassen sich nicht als Bereich markieren. Beim Übernehmen wird das betroffene Dokument deshalb im nächsten Durchlauf aus Seitenbildern neu aufgebaut, ohne Textschicht.")] : []),
-      el("button", { type: "button", class: "knopf haupt", onclick: resteUebernehmen, html: `Reste als Vorschläge übernehmen ${SYMBOL.pfeil}` }));
+      el("button", { type: "button", class: "knopf haupt", onclick: resteUebernehmen, html: `Reste als Vorschläge übernehmen ${SYMBOL.pfeil}` }),
+      ...(hartnaeckig.length ? [el("div", { class: "ausweg" },
+        el("h2", {}, "Reste trotz Übernahme"),
+        el("p", {}, "Ab der zweiten Übernahme deckt Unkenntlich Reste in Fotos und Videos großzügiger ab: doppelt so groß, im Foto mit angrenzenden Flächen zusammengelegt, im Video länger nachgeführt. Sie können eine Datei mit Resten auch jetzt vom Export ausnehmen: Sie wird nicht herausgegeben; der Prüfbericht nennt sie mit ihren Resten."),
+        el("div", { class: "knoepfe" }, ...hartnaeckig.map((d) => el("button", { type: "button", class: "knopf", onclick: () => ausnehmen(d) }, `${d.name} vom Export ausnehmen`))))] : []));
   } else {
     karte.append(el("div", { class: "weiter" }, el("button", { type: "button", class: "knopf haupt", onclick: () => wechseln("fertig"), html: `Zum Ergebnis ${SYMBOL.pfeil}` })));
   }
@@ -650,6 +675,12 @@ function gegenprobeAktualisieren() {
     breite(balken.firstElementChild, g.fortschritt || 0);
     text.textContent = g.meldung || "";
   } else zeichnen();
+}
+
+async function ausnehmen(d) {
+  if (!confirm(`${d.name} vom Export ausnehmen? Die Datei wird nicht herausgegeben; der Prüfbericht nennt sie mit ihren Resten.`)) return;
+  try { z.v = await post(`/vorgang/${vid()}/datei/${d.id}/ausnehmen`); } catch (e) { melden(e.message); return; }
+  zeichnen(); melden(`${d.name} wird nicht herausgegeben; der Prüfbericht nennt sie.`);
 }
 
 async function resteUebernehmen() {
@@ -665,9 +696,11 @@ function zeichneFertig(main) {
   const unk = v.stellen.filter((s) => s.entscheidung === "unkenntlich").length;
   const sicht = v.stellen.filter((s) => s.entscheidung === "sichtbar").length;
   const meta = v.dateien.reduce((n, d) => n + (d.metadaten?.length || 0), 0);
+  const ohne = v.dateien.filter((d) => !imExport(d)).map((d) => d.name);
   main.append(
     el("div", { class: "fertig-kopf" },
-      el("div", {}, el("h1", {}, "Fertig."), el("p", {}, "Ziehen Sie den Schieber, um Original und Ergebnis zu vergleichen.")),
+      el("div", {}, el("h1", {}, "Fertig."), el("p", {}, "Ziehen Sie den Schieber, um Original und Ergebnis zu vergleichen."),
+        ohne.length ? el("p", {}, `Nicht herausgegeben: ${ohne.join(", ")} (Reste auch nach Übernahmen; im Prüfbericht vermerkt).`) : null),
       el("div", { class: "knoepfe" },
         el("a", { class: "knopf haupt", href: `/api/vorgang/${vid()}/export.zip`, download: "", html: `${SYMBOL.laden} Alles herunterladen (ZIP)` }),
         el("a", { class: "knopf", href: `/api/vorgang/${vid()}/bericht.pdf`, download: "", html: `${SYMBOL.dokument} Prüfbericht (PDF)` }),
@@ -681,6 +714,11 @@ function zeichneFertig(main) {
 }
 
 function vergleichKarte(d) {
+  if (!imExport(d)) {
+    return el("section", { class: "vergleich-karte", "aria-label": `${d.name}: nicht herausgegeben` },
+      el("div", { class: "oben" }, el("h2", {}, d.name), el("span", { class: "leise" }, "nicht herausgegeben")),
+      el("p", { class: "leise" }, `Die Gegenprobe fand auch nach ${mal(d.ausgenommen.runden, "Übernahme", "Übernahmen")} noch ${mal(d.ausgenommen.reste.length, "Rest", "Reste")}. Die Datei ist nicht im Export; der Prüfbericht nennt sie.`));
+  }
   const wurzel = el("section", { class: "vergleich-karte", "aria-label": `Vergleich ${d.name}` });
   const seiteWahl = { n: 0 };
   const bauen = () => {

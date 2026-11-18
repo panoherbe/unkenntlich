@@ -13,7 +13,7 @@ ein Paket zum Installieren für alle ist der nächste Schritt.
 
 ![Rundgang in sechs Szenen: drei Dateien ablegen, ein Schreiben prüfen und einen Stempel selbst markieren, ein Foto mit Gesichtern, Kennzeichen und einer Statue, ein Video mit einer Karte je Person, die Gegenprobe mit 0 Resten, Vorher-Nachher und Prüfbericht](medien/rundgang.gif)
 
-<sub>Rundgang: 91 Sekunden, sechs Szenen, ohne Ton; aufgenommen am 17.11.2026 in einer frischen Installation (Version 0.1.0), nur auf der CPU gerechnet. Erkennung und Gegenprobe liefen ohne Aufnahme; die Untertitel nennen ihre Dauer aus dem Messlauf (die Oberfläche zeigt die Dauer dieser Aufnahme, in der der Browser mitrechnet). Das Schreiben ist erfunden (simuliert); Foto und Video sind mit offenen Modellen erzeugt: **keine echten Personen, keine echten Kennzeichen** ([Quellen](pruefsatz/QUELLEN.md)). Bewegtes Bild oben: 4,7 MB. [Video herunterladen (MP4, 3,6 MB)](https://github.com/panoherbe/unkenntlich/raw/main/medien/rundgang.mp4) · Text des Rundgangs weiter unten.</sub>
+<sub>Rundgang: 91 Sekunden, sechs Szenen, ohne Ton; aufgenommen am 18.11.2026 in einer frischen Installation (Version 0.2.0), nur auf der CPU gerechnet. Erkennung und Gegenprobe liefen ohne Aufnahme; die Untertitel nennen ihre Dauer aus dem Messlauf (die Oberfläche zeigt die Dauer dieser Aufnahme, in der der Browser mitrechnet). Das Schreiben ist erfunden (simuliert); Foto und Video sind mit offenen Modellen erzeugt: **keine echten Personen, keine echten Kennzeichen** ([Quellen](pruefsatz/QUELLEN.md)). Bewegtes Bild oben: 4,7 MB. [Video herunterladen (MP4, 3,6 MB)](https://github.com/panoherbe/unkenntlich/raw/main/medien/rundgang.mp4) · Text des Rundgangs weiter unten.</sub>
 
 **Für wen:** Behörden und Kommunen, die Akten nach Informationsfreiheits- und Transparenzgesetzen herausgeben; Ämter,
 Vereine und kleine Unternehmen, die DSGVO-Auskünfte mit Fotos oder Kameraaufnahmen beantworten; Redaktionen,
@@ -22,7 +22,7 @@ Initiativen und Schulen, die Bilder von Menschen zeigen; alle, die eine Kopie we
 <p align="center">
   <img src="medien/2-schreiben.jpg" width="49%" alt="Ein erfundenes, gescanntes Schreiben nach dem Prüfen: Name, Anschrift, Telefon, IBAN, Steuer-ID, Geburtsdatum, Unterschrift und ein selbst gezogener Stempel sind schwarz; die Zentrale der Behörde bleibt sichtbar">
   <img src="medien/3-foto.jpg" width="49%" alt="Ein erzeugtes Foto von einem Marktplatz: Gesichter und Kennzeichen sind deckend überschrieben; das Gesicht einer Bronzestatue bleibt sichtbar, Grund „Kein Personenbezug“">
-  <img src="medien/4-video.jpg" width="49%" alt="Ein erzeugtes Video einer Fußgängerzone mit Rahmen um Personen, darunter eine Zeitleiste je Gruppe, rechts Karten je Person mit Gesicht, ganz oder sichtbar">
+  <img src="medien/4-video.jpg" width="49%" alt="Ein erzeugtes Video einer Fußgängerzone mit Rahmen um Personen, darunter eine Zeitleiste je Gruppe, rechts Karten je Person mit den Schaltern „Gesicht“, „Ganze Person“ und „Sichtbar“; eine Person bleibt sichtbar, Grund „Einwilligung liegt vor“">
   <img src="medien/5-gegenprobe.jpg" width="49%" alt="Ergebnis der Gegenprobe: großer Haken, 0 Reste, Export freigegeben, darunter die Prüfungen je Datei">
 </p>
 
@@ -31,22 +31,22 @@ echten Personen, keine echten Kennzeichen, [Quellen](pruefsatz/QUELLEN.md)).</su
 
 ## Was Unkenntlich kann, läuft hier schon
 
-Kurz: Jede Zeile ist umgesetzt. Jede Zahl stammt aus dem Messlauf vom 17.11.2026 ([Messprotokoll](nachweis/PROTOKOLL.md),
+Kurz: Jede Zeile ist umgesetzt. Jede Zahl stammt aus dem Messlauf vom 18.11.2026 ([Messprotokoll](nachweis/PROTOKOLL.md),
 Rohdaten [`nachweis/messwerte.json`](nachweis/messwerte.json)). Die zwölf Schreiben sind erfunden, Fotos und Video mit
 offenen Modellen erzeugt, und der Mensch, der im Messlauf bestätigt, ist ein Skript: alles **simuliert**.
 
-| Was Sie brauchen | Läuft hier schon | Gemessen am 17.11.2026 |
+| Was Sie brauchen | Läuft hier schon | Gemessen am 18.11.2026 |
 |---|---|---|
 | Angaben im Text finden | Namen, Anschriften, Telefon, E-Mail, IBAN, Steuer-ID, Geburtsdatum, Akten- und Kundennummern, Kennzeichen; feste Regeln mit Prüfziffer plus ein offenes Modell; in digitalen PDFs, in Scans (Texterkennung) und in der unsichtbaren Textschicht eines Scanners; ein Name wird im ganzen Dokument gesucht | 215 von 215 Angaben im Text vorgeschlagen, in 12 erfundenen Schreiben (simuliert); mit Unterschriften und Stempeln 231 von 235; 3,7 Vorschläge je Seite ohne eingesetzte Angabe, meist Anschrift und Zentrale des Absenders |
 | Unterschriften und Stempel | ein Bildmodell schlägt Bereiche vor; was fehlt, zieht man mit „Bereich ziehen“ selbst | Unterschriften 12 von 12 abgedeckt (6 als Unterschrift erkannt), Stempel 4 von 8 (simuliert; rechteckige Firmenstempel erkennt das Modell nicht) |
-| Gesichter und Kennzeichen in Fotos | Gesichter, Köpfe auch von hinten, Kennzeichen mit zwei Modellen, Text im Bild; deckend überschrieben, nicht verpixelt | 4 erzeugte Fotos (1536 × 1024): Erkennung je 0,7 s auf der CPU; EXIF und GPS danach entfernt |
-| Personen im Video | jede Person über alle Einzelbilder verfolgt, eine Karte und eine Entscheidung je Person (Gesicht, ganze Person oder sichtbar lassen), Kennzeichen ebenso; Zeitleiste; nach einem Schnitt beginnen alle Spuren neu | erzeugtes Video, 10 s in drei Szenen (1024 × 560): 22 Personen, 4 weitere Gesichter, 3 Kennzeichen; beide Schnitte erkannt; Erkennung 50 s auf der CPU |
-| Wirklich entfernen | Text und Bildpunkte unter jedem Balken, Metadaten, XMP, Anhänge, Anmerkungen, Formularfelder, Lesezeichen; EXIF und GPS; Ton und Metadaten im Video | zweite, unabhängige Prüfung: 0 von 146 eingesetzten Angaben im Ergebnis noch lesbar; Kontrollversuch „nur schwarz übermalt“: Gegenprobe findet den Inhalt unter den Kästen in 10 von 10 PDFs (Text in der Textschicht in 8, Bildpunkte unter den Flächen in 10) und sperrt alle 10 |
-| Gegenprobe vor dem Export | alle Erkenner erneut auf dem Ergebnis, Textschicht, Bildpunkte unter den Flächen und neue Texterkennung, jedes Einzelbild; bei einem Rest bleibt der Export gesperrt, der Rest wird ein neuer Vorschlag | am Ende 0 Reste in allen 17 Dateien; zuerst fand sie in einem Schreiben und einem Foto je 1 Rest (gesperrt, übernommen, dann 0); Kontrollversuch Video: jedes zehnte Einzelbild unbearbeitet, gefunden in 24 von 24 |
+| Gesichter und Kennzeichen in Fotos | Gesichter, Köpfe auch von hinten, Kennzeichen mit zwei Modellen, Text im Bild; deckend überschrieben, nicht verpixelt | 4 erzeugte Fotos (1536 × 1024): Erkennung je 0,6 bis 0,7 s auf der CPU; EXIF und GPS danach entfernt |
+| Personen im Video | jede Person über alle Einzelbilder verfolgt, eine Karte und eine Entscheidung je Person (Gesicht, ganze Person oder sichtbar lassen), Kennzeichen ebenso; Zeitleiste; nach einem Schnitt beginnen alle Spuren neu | erzeugtes Video, 10 s in drei Szenen (1024 × 560): 22 Personen, 4 weitere Gesichter, 3 Kennzeichen; beide Schnitte erkannt; Erkennung 49 s auf der CPU |
+| Wirklich entfernen | Text und Bildpunkte unter jedem Balken, Metadaten, XMP, Anhänge, Anmerkungen, Formularfelder, Lesezeichen; EXIF und GPS; Ton und Metadaten im Video | zweite, unabhängige Prüfung: 0 von 148 eingesetzten Angaben im Ergebnis noch lesbar; Kontrollversuch „nur schwarz übermalt“: Gegenprobe findet den Inhalt unter den Kästen in 10 von 10 PDFs (Text in der Textschicht in 8, Bildpunkte unter den Flächen in 10) und sperrt alle 10 |
+| Gegenprobe vor dem Export | alle Erkenner erneut auf dem Ergebnis, Textschicht, Bildpunkte unter den Flächen und neue Texterkennung, jedes Einzelbild; bei einem Rest bleibt der Export gesperrt, der Rest wird ein neuer Vorschlag; bleibt er auch danach, deckt die nächste Runde in Fotos und Videos großzügiger ab, und als letzter Ausweg wird die Datei nicht herausgegeben | am Ende 0 Reste in allen 17 Dateien; zuerst fand sie in einem Schreiben und einem Foto je 1 Rest (gesperrt, übernommen, dann 0); Kontrollversuch Video: jedes zehnte Einzelbild unbearbeitet, gefunden in 24 von 24 |
 | Prüfbericht | PDF und HTML: jede Stelle mit Kategorie, Ort, Entscheidung, Grund für „sichtbar“, Prüfsummen, Protokoll; ohne die Daten selbst | im Test geprüft: keine Angabe im Klartext, auch nicht im Grund eines Vorschlags |
 | Ohne Internet | Modelle beim Bauen geladen, mit Prüfsumme; danach braucht Unkenntlich kein Netz | Messlauf ohne Netz (network_mode: none) |
 | Barrierefrei bedienbar | Tastatur, sichtbarer Fokus, Schieber mit Pfeiltasten, helles und dunkles Schema, Telefon | 0 Verstöße laut axe-core 4.14.1 (WCAG 2.2 AA) in 16 Ansichten, dazu 14 Stellen zur Handprüfung (Farbkontrast über Bildern, Untertitel und ein Attribut am Video) |
-| Geprüfte Qualität | automatische Tests | 17 von 17 Tests bestanden (15 s) |
+| Geprüfte Qualität | automatische Tests | 19 von 19 Tests bestanden (15 s) |
 
 ## In zwei Minuten selbst prüfen
 
@@ -64,7 +64,7 @@ docker compose up -d --build
 Dann http://localhost:8080 öffnen und **„Beispiele laden“** klicken. Das erste Bauen lädt Bibliotheken und die freien
 Modelle (Image 4,5 GB, davon 1,7 GB Modelle, [gemessen](nachweis/image-groesse.txt)) und dauert je nach Leitung einige Minuten; danach braucht
 Unkenntlich kein Netz mehr. Die Erkennung der drei Beispiele dauert auf einem Rechner ohne Grafikkarte etwa eine
-Minute (Messprotokoll: Schreiben 13 s, Foto 0,7 s, Video 50 s).
+Minute (Messprotokoll: Schreiben 13 s, Foto 0,7 s, Video 49 s).
 
 Zum Ausprobieren: Im Schreiben eine Stelle auf „Sichtbar lassen“ stellen, mit „Bereich ziehen“ etwas selbst
 markieren, im Video eine Person auf „Sichtbar“ stellen. Dann „Gegenprobe starten“ und am Ende den Schieber ziehen.
@@ -92,6 +92,11 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
 - **Kein Export durch die Hintertür.** Solange die Gegenprobe Reste meldet, sind Ergebnis, ZIP, Ergebnisvorschau und
   Ergebnisvideo gesperrt ([Test](tests/test_api.py)). Bleibt ein Rest ohne Ort (etwa Metadaten), baut Unkenntlich das
   Dokument im nächsten Durchlauf aus Seitenbildern neu auf, damit der Export nicht für immer gesperrt bleibt.
+- **Ein Ausweg auch für Fotos und Videos.** Findet die Gegenprobe nach einer Übernahme in einem Foto oder Video noch
+  einen Rest, deckt die nächste Runde großzügiger ab: doppelt so groß, im Foto mit angrenzenden Flächen zusammengelegt,
+  im Video länger nachgeführt. Nach jeder Übernahme lässt sich eine Datei mit Resten (jeder Art) auch vom Export
+  ausnehmen: Sie wird nicht herausgegeben, ihr Ergebnis ist nicht abrufbar, und der Prüfbericht nennt sie mit ihren
+  Resten. Übergangen wird ein Rest nie ([Test](tests/test_schwaerzen.py)).
 
 ## Text des Rundgangs
 
@@ -102,7 +107,7 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
 |---|---|---|
 | 0:00 | Titelkarte: „Personen und ihre Daten unkenntlich machen.“ | Dokumente, Fotos und Videos, auf dem eigenen Rechner, mit Gegenprobe. |
 | 0:04 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. | Alles bleibt auf diesem Rechner, ohne Internet. |
-| 0:10 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. | Erkennung auf der CPU: 63 s für alle drei Dateien (Messlauf), das Video braucht am längsten. |
+| 0:10 | Drei Dateien ablegen: ein Schreiben, ein Foto, ein Video. | Erkennung auf der CPU: 62 s für alle drei Dateien (Messlauf), das Video braucht am längsten. |
 | 0:19 | Jede Stelle mit Grund. Sie entscheiden. | Name, Anschrift, IBAN, Steuer-ID, Unterschrift: jede Stelle einzeln. |
 | 0:24 | Jede Stelle mit Grund. Sie entscheiden. | Die Zentrale der Behörde bleibt sichtbar; der Grund steht im Prüfbericht. |
 | 0:30 | Jede Stelle mit Grund. Sie entscheiden. | Den Stempel hat das Modell nicht gefunden: einen Rahmen selbst ziehen. |
@@ -112,7 +117,7 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
 | 0:55 | Gegenprobe: alles wird auf dem Ergebnis erneut gesucht. | Findet sie noch etwas, bleibt der Export gesperrt. |
 | 1:02 | Gegenprobe: alles wird auf dem Ergebnis erneut gesucht. | 0 Reste: Export freigegeben. Gegenprobe auf der CPU: 35 s (Messlauf). |
 | 1:09 | Vorher, nachher und ein Prüfbericht. | Der Bericht nennt jede Stelle und jede Entscheidung, aber keine der Daten. |
-| 1:15 | Messkarte: „Gemessen am 17.11.2026“ | 215 von 215 Angaben im Text vorgeschlagen, 12 erfundene Schreiben (simuliert), mit Unterschriften und Stempeln 231 von 235; 0 Reste laut Gegenprobe in 12 Schreiben, 4 Fotos und 1 Video (Fotos und Video erzeugt); 4,9 s Erkennung je Sekunde Video (1024 × 560 Bildpunkte), nur CPU; 0 Verstöße (axe-core), hell und dunkel, 14 Stellen zur Handprüfung. |
+| 1:15 | Messkarte: „Gemessen am 18.11.2026“ | 215 von 215 Angaben im Text vorgeschlagen, 12 erfundene Schreiben (simuliert), mit Unterschriften und Stempeln 231 von 235; 0 Reste laut Gegenprobe in 12 Schreiben, 4 Fotos und 1 Video (Fotos und Video erzeugt); 4,8 s Erkennung je Sekunde Video (1024 × 560 Bildpunkte), nur CPU; 0 Verstöße (axe-core), hell und dunkel, 14 Stellen zur Handprüfung. |
 | 1:24 | Schlusskarte: „Selbst ausprobieren“ | github.com/panoherbe/unkenntlich; `docker compose up`, dann im Browser, ohne Internet. Code AGPL-3.0-or-later; Schreiben erfunden (simuliert, CC0); Foto und Video erzeugt mit MOSS-Image-SFT und Vimoo-1.0-Lite (Apache-2.0): keine echten Personen, keine echten Kennzeichen (CC0); Panagiotis Herbe. |
 
 </details>
@@ -153,7 +158,7 @@ nichts geht nach außen.
 | Bilder und Video | OpenCV, FFmpeg (H.264, ohne Ton und Metadaten); Vorschau im Browser als WebM |
 | Sicherheit | Content-Security-Policy nur für die eigene Adresse, keine Cookies, keine Konten; Port nur auf `127.0.0.1`; Modelle beim Bauen mit fester Prüfsumme geladen ([`werkzeuge/modelle_laden.py`](werkzeuge/modelle_laden.py)), zur Laufzeit `HF_HUB_OFFLINE=1`, `YOLO_OFFLINE=1`, Statistik von Ultralytics aus |
 | Daten | je Vorgang ein Ordner im Volume `daten`; „Alles löschen“ entfernt ihn vollständig |
-| Tests | `docker compose run --rm test` (17 Tests, 4 warnings, ohne Netz) |
+| Tests | `docker compose run --rm test` (19 Tests, 4 warnings, ohne Netz) |
 | Nachweise | [Messprotokoll](nachweis/PROTOKOLL.md), [Barrierefreiheit](nachweis/barrierefreiheit.json), Prüfsatz mit Wahrheit ([`pruefsatz/`](pruefsatz/)) |
 
 ### Modelle und Lizenzen (geprüft am 17.11.2026)

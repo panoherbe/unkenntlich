@@ -197,6 +197,16 @@
   "seiten": [
    [
     {
+     "kategorie": "email",
+     "text": "nadine.lindqvist@example.org",
+     "rechteck": [
+      70.87,
+      94.68,
+      229.29,
+      106.79
+     ]
+    },
+    {
      "kategorie": "iban",
      "text": "DE58 9026 9460 3029 6411 99",
      "rechteck": [
@@ -208,22 +218,12 @@
     },
     {
      "kategorie": "iban",
-     "text": "DE63 9435 2057 4778 3830 26",
+     "text": "DE65 0169 0674 3205 0184 00",
      "rechteck": [
       70.87,
       435.26,
       234.27,
       447.36
-     ]
-    },
-    {
-     "kategorie": "email",
-     "text": "ronja.dreesen@example.org",
-     "rechteck": [
-      70.87,
-      94.68,
-      217.85,
-      106.79
      ]
     },
     {
@@ -247,42 +247,72 @@
      ]
     },
     {
-     "kategorie": "anschrift",
-     "text": "54321 Beispielstadt",
+     "kategorie": "name",
+     "text": "Nadine Lindqvist",
      "rechteck": [
-      174.23,
+      70.87,
+      47.02,
+      194.38,
+      62.15
+     ]
+    },
+    {
+     "kategorie": "name",
+     "text": "Nadine Lindqvist",
+     "rechteck": [
+      70.87,
+      134.13,
+      129.41,
+      142.27
+     ]
+    },
+    {
+     "kategorie": "name",
+     "text": "Nadine Lindqvist",
+     "rechteck": [
+      70.87,
+      612.84,
+      157.84,
+      624.95
+     ]
+    },
+    {
+     "kategorie": "anschrift",
+     "text": "Hafenstraße 68b",
+     "rechteck": [
+      70.87,
       65.15,
-      277.78,
+      157.94,
       77.25
      ]
     },
     {
      "kategorie": "anschrift",
-     "text": "54321 Beispielstadt",
+     "text": "Hafenstraße 68b",
      "rechteck": [
-      197.96,
+      136.07,
       134.13,
-      267.65,
+      194.68,
       142.27
      ]
     },
     {
      "kategorie": "anschrift",
-     "text": "Am Kirchberg 92b",
+     "text": "97531 Waldhagen",
      "rechteck": [
-      70.87,
+      167.86,
       65.15,
-      164.34,
+      262.29,
       77.25
      ]
     },
     {
      "kategorie": "anschrift",
-     "text": "Am Kirchberg 92b",
+     "text": "97531 Waldhagen",
      "rechteck": [
-      128.38,
+      201.35,
       134.13,
-      191.3,
+      264.91,
       142.27
      ]
     },
@@ -297,23 +327,33 @@
      ]
     },
     {
-     "kategorie": "name",
-     "text": "Ronja Dreesen",
+     "kategorie": "telefon",
+     "text": "030 23125 589",
      "rechteck": [
-      70.87,
-      47.02,
-      177.45,
-      62.15
+      111.06,
+      79.92,
+      190.43,
+      92.02
      ]
     },
     {
-     "kategorie": "name",
-     "text": "Ronja Dreesen",
+     "kategorie": "telefon",
+     "text": "0176 04069058",
      "rechteck": [
-      70.87,
-      134.13,
-      121.71,
-      142.27
+      231.39,
+      79.92,
+      314.07,
+      92.02
+     ]
+    },
+    {
+     "kategorie": "telefon",
+     "text": "0176 04069058",
+     "rechteck": [
+      221.88,
+      459.1,
+      304.56,
+      471.2
      ]
     },
     {
@@ -324,46 +364,6 @@
       163.5,
       146.41,
       175.61
-     ]
-    },
-    {
-     "kategorie": "name",
-     "text": "Ronja Dreesen",
-     "rechteck": [
-      70.87,
-      612.84,
-      146.41,
-      624.95
-     ]
-    },
-    {
-     "kategorie": "telefon",
-     "text": "030 23125 233",
-     "rechteck": [
-      111.06,
-      79.92,
-      190.43,
-      92.02
-     ]
-    },
-    {
-     "kategorie": "telefon",
-     "text": "0176 04069095",
-     "rechteck": [
-      231.39,
-      79.92,
-      314.07,
-      92.02
-     ]
-    },
-    {
-     "kategorie": "telefon",
-     "text": "0176 04069095",
-     "rechteck": [
-      221.88,
-      459.1,
-      304.56,
-      471.2
      ]
     },
     {
@@ -401,9 +401,9 @@
      "text": null,
      "rechteck": [
       70.87,
-      550.83,
+      552.48,
       189.92,
-      592.82
+      591.17
      ]
     }
    ]

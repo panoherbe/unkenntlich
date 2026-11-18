@@ -305,8 +305,14 @@ def miniaturen(pfad, ordner: Path, spuren: dict) -> None:
     cap.release()
 
 
-def spuren_aus_resten(reste: list[dict], spuren: dict, fps: float, gesamt: int, praefix: str = "r") -> list[dict]:
-    """Reste der Gegenprobe werden neue Spuren (in `spuren` eingetragen) und neue, offene Stellen."""
+def spuren_aus_resten(reste: list[dict], spuren: dict, fps: float, gesamt: int, praefix: str = "r",
+                      grosszuegig: bool = False, schnitte: list | None = None) -> list[dict]:
+    """Reste der Gegenprobe werden neue Spuren (in `spuren` eingetragen) und neue, offene Stellen.
+
+    `grosszuegig` (ab der zweiten Übernahme in derselben Datei): jedes Rechteck doppelt so breit und hoch statt um
+    30 % größer, und die Spur läuft dreimal so lange vor und nach jedem Fund weiter (über keinen Schnitt hinweg)."""
+    faktor, nachlauf = (1.0, 3 * NACHLAUF) if grosszuegig else (0.3, NACHLAUF)
+    grund = "Rest nach mehreren Runden, großzügig abgedeckt" if grosszuegig else "Rest aus der Gegenprobe"
     je_bild: dict[int, list] = {}
     for r in reste:
         if r.get("bild") is not None and r.get("rechteck"):
@@ -317,11 +323,11 @@ def spuren_aus_resten(reste: list[dict], spuren: dict, fps: float, gesamt: int, 
     neu = []
     for n, sp in enumerate(verf.spuren):
         sid = f"{praefix}{len(spuren)}x{n}"
-        boxen = _ausdehnen(_luecken_fuellen({k: bild.erweitern(b, 0.3, 10**5, 10**5) for k, b in sp["bilder"].items()}),
-                           NACHLAUF, gesamt)
+        boxen = _ausdehnen(_luecken_fuellen({k: bild.erweitern(b, faktor, 10**5, 10**5) for k, b in sp["bilder"].items()}),
+                           nachlauf, gesamt, schnitte)
         spuren[sid] = {"art": "gesicht", "boxen": _runden(boxen)}
         nrn = sorted(boxen)
-        neu.append({"spur": sid, "kategorie": "gesicht", "grund": "Rest aus der Gegenprobe", "quelle": "Gegenprobe",
+        neu.append({"spur": sid, "kategorie": "gesicht", "grund": grund, "quelle": "Gegenprobe",
                     "sicherheit": 1.0, "seite": 0, "rechtecke": [], "text": None, "modus": None,
                     "zeit": {"von": round(nrn[0] / fps, 2), "bis": round(nrn[-1] / fps, 2), "bilder": len(nrn),
                              "gesicht_anteil": 1.0, "bild_gross": nrn[0], "kurz": True}})

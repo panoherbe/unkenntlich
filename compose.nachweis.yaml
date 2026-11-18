@@ -5,7 +5,7 @@
 services:
   messung:
     build: .
-    image: unkenntlich:0.1.0
+    image: unkenntlich:0.2.0
     network_mode: none
     user: "${UID_GID:-1000:1000}"
     working_dir: /app
@@ -16,7 +16,7 @@ services:
     command: ["sh", "-c", "python -m pytest -q -p no:cacheprovider tests > /tmp/tests.txt 2>&1; tail -3 /tmp/tests.txt; cp /tmp/tests.txt nachweis/tests.txt; python messung/messen.py"]
 
   app:
-    image: unkenntlich:0.1.0
+    image: unkenntlich:0.2.0
     networks: [intern]
     tmpfs:
       - /daten:mode=1777

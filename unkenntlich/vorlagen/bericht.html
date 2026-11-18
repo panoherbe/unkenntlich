@@ -53,6 +53,7 @@ tr { break-inside: avoid; }
 ul.haken { list-style: none; padding: 0; margin: 4px 0; }
 ul.haken li::before { content: "✓"; color: var(--gut); font-weight: 700; margin-right: 6px; }
 ul.rest li { color: var(--schlecht); }
+p.ausgenommen { margin: 8px 0; padding: 8px 12px; border-left: 4px solid var(--schlecht); background: #f8e9e9; border-radius: 6px; }
 .mono { font-family: "Plex Mono", ui-monospace, monospace; font-size: 7.8pt; word-break: break-all; }
 .hinweis { margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--linie); color: var(--leise); font-size: 8.4pt; }
 </style>
@@ -69,7 +70,7 @@ ul.rest li { color: var(--schlecht); }
 {% if reste == 0 %}
 <section class="ergebnis">
   <svg class="zeichen" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="#14724f"/><path d="M15 27l7 7 15-16" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <div><strong>Gegenprobe: 0 Reste</strong><span>Alle Prüfungen auf den Ergebnisdateien fanden nichts mehr, das unkenntlich sein sollte. Der Export ist freigegeben.</span></div>
+  <div><strong>Gegenprobe: 0 Reste</strong><span>Alle Prüfungen auf den Ergebnisdateien fanden nichts mehr, das unkenntlich sein sollte. Der Export ist freigegeben{% if ausgenommen %}, ohne {{ ausgenommen|join(", ") }}: vom Export ausgenommen und nicht herausgegeben, weil auch nach Übernahmen Reste blieben (siehe unten){% endif %}.</span></div>
 </section>
 {% else %}
 <section class="ergebnis gesperrt">
@@ -83,12 +84,14 @@ ul.rest li { color: var(--schlecht); }
   <div><b>{{ dateien|sum(attribute="unkenntlich") }}</b><span>Stellen unkenntlich</span></div>
   <div><b>{{ dateien|sum(attribute="sichtbar") }}</b><span>bewusst sichtbar gelassen</span></div>
   <div><b>{{ dateien|map(attribute="metadaten")|map("length")|sum }}</b><span>Metadaten-Felder entfernt</span></div>
+  {% if ausgenommen %}<div><b>{{ ausgenommen|length }}</b><span>nicht herausgegeben</span></div>{% endif %}
 </div>
 
 <h2>Dateien</h2>
 {% for d in dateien %}
 <section class="datei">
   <div class="kopf"><b>{{ d.name }}</b><span class="leise">{{ d.art }} · {{ d.umfang }}</span></div>
+  {% if d.ausgenommen %}<p class="ausgenommen"><b>Nicht herausgegeben.</b> Die Gegenprobe fand auch nach {{ d.ausgenommen.runden }} Übernahme{{ "n" if d.ausgenommen.runden != 1 }} noch {{ d.reste|length }} Rest{{ "e" if d.reste|length != 1 }}; die Datei wurde am {{ d.ausgenommen.zeit }} vom Export ausgenommen. Ihr Ergebnis ist nicht im Export.</p>{% endif %}
   {% if d.vorschauen %}<div class="vorschau">{% for b in d.vorschauen %}<img src="{{ b }}" alt="Ergebnis, verkleinert">{% endfor %}</div>
   <div class="leise">Vorschau zeigt das Ergebnis, nicht das Original.</div>{% endif %}
   <h3>Stellen ({{ d.stellen|length }})</h3>
@@ -107,7 +110,7 @@ ul.rest li { color: var(--schlecht); }
   <p>{% for m in d.metadaten %}{{ m.feld }} <span class="leise">({{ m.art }})</span>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
   <h3>Gegenprobe ({{ d.dauer }} s)</h3>
   <ul class="haken">{% for p in d.pruefungen %}<li>{{ p }}</li>{% endfor %}</ul>
-  {% if d.reste %}<ul class="rest">{% for r in d.reste %}<li>{{ r.pruefung }}: {{ r.hinweis }}{% if r.seite is not none and r.seite is defined %}, Seite {{ r.seite + 1 }}{% endif %}{% if r.zeit is defined and r.zeit is not none %}, bei {{ r.zeit }} s{% endif %}</li>{% endfor %}</ul>
+  {% if d.reste %}<ul class="rest">{% for r in d.reste %}<li>{{ r.pruefung }}: {{ r.hinweis }}{% if d.art == "Dokument" and r.seite is not none and r.seite is defined %}, Seite {{ r.seite + 1 }}{% endif %}{% if r.zeit is defined and r.zeit is not none %}, bei {{ r.zeit }} s{% endif %}</li>{% endfor %}</ul>
   {% else %}<p><b>0 Reste.</b></p>{% endif %}
   <h3>Prüfsummen (SHA-256)</h3>
   <p class="mono">Eingang {{ d.sha_ein }}<br>Ergebnis {{ d.sha_aus }}</p>

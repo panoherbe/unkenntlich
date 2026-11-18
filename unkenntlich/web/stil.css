@@ -57,7 +57,8 @@ a { color: var(--akzent); }
 .schritte [aria-current="step"] .nr { background: var(--akzent); border-color: var(--akzent); color: var(--auf-akzent); }
 .schritte .erledigt .nr { background: var(--akzent-hell); border-color: var(--akzent-hell); color: var(--akzent-tief); }
 .schritte .trenner { width: 26px; height: 1.5px; background: var(--linie-stark); align-self: center; }
-.werkzeuge { display: flex; justify-content: flex-end; gap: 8px; }
+.werkzeuge { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+.werkzeuge .knopf { white-space: nowrap; }
 
 /* Knöpfe --------------------------------------------------------------------------------------------------------- */
 .knopf { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 22px;
@@ -201,24 +202,24 @@ main { max-width: 1480px; margin: 0 auto; padding: 28px; }
 .filter button { border: 1.5px solid var(--linie); background: var(--flaeche); border-radius: 999px; padding: 4px 12px; font-size: 14px;
                  cursor: pointer; color: var(--leise); font-weight: 600; }
 .filter button[aria-pressed="true"] { border-color: var(--akzent); color: var(--akzent-tief); background: var(--akzent-hell); }
-.karten { list-style: none; margin: 0; padding: 2px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow: auto;
-          grid-auto-rows: max-content; flex: 1 1 auto; min-height: 0; }
-.karte { border: 1.5px solid var(--linie); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr);
+.karten { list-style: none; margin: 0; padding: 2px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+          gap: 10px; overflow: auto; grid-auto-rows: max-content; flex: 1 1 auto; min-height: 0; }
+.karte { border: 1.5px solid var(--linie); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 116px minmax(0, 1fr);
          min-width: 0; background: var(--flaeche); }
 .karte.gewaehlt { border-color: var(--farbe); box-shadow: 0 0 0 2px color-mix(in srgb, var(--farbe) 30%, transparent); }
-.karte .bild { position: relative; height: 104px; background: var(--flaeche-3); display: grid; place-items: center; overflow: hidden;
-               border: 0; padding: 0; cursor: pointer; width: 100%; }
+.karte .bild { position: relative; grid-column: 1; grid-row: 1; height: 88px; background: var(--flaeche-3); display: grid; place-items: center;
+               overflow: hidden; border: 0; padding: 0; cursor: pointer; width: 100%; }
 .karte .bild img { height: 100%; width: 100%; object-fit: cover; object-position: top; transition: filter .4s ease; }
 .karte.u .bild img { filter: blur(9px) saturate(.4) brightness(.55); }
 .karte .marker { position: absolute; left: 8px; top: 8px; background: var(--flaeche); color: var(--tinte); border-radius: 8px;
                  font-size: 12.5px; padding: 1px 7px; font-weight: 600; }
-.karte .text { padding: 8px 10px 4px; }
-.karte b { display: block; font-size: 14.5px; }
-.karte small { color: var(--leise); font-size: 13px; }
-.karte .wahl { margin: 4px 8px 9px; }
-.karte .wahl { grid-auto-columns: minmax(0, 1fr); }
-.karte .wahl button { font-size: 13px; padding: 6px 2px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.karte select { width: 100%; font-size: 13px; }
+.karte .text { grid-column: 2; grid-row: 1; align-self: center; padding: 6px 12px; min-width: 0; }
+.karte b { display: block; font-size: 15px; }
+.karte small { color: var(--leise); font-size: 13.5px; line-height: 1.35; display: block; }
+.karte .wahl { grid-column: 1 / -1; margin: 8px; grid-auto-columns: minmax(0, 1fr); }
+.karte .wahl button { font-size: 14px; padding: 7px 4px; min-width: 0; line-height: 1.2; }
+.karte .grundwahl { grid-column: 1 / -1; padding: 0 8px 9px; }
+.karte select { width: 100%; font-size: 13.5px; }
 
 /* 3 Gegenprobe ----------------------------------------------------------------------------------------------------- */
 .mitte { max-width: 880px; margin: 30px auto; }
@@ -244,6 +245,11 @@ main { max-width: 1480px; margin: 0 auto; padding: 28px; }
 .urteil span { color: var(--leise); }
 .reste { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 8px; }
 .reste li { padding: 10px 14px; border-radius: 12px; background: var(--flaeche-2); border-left: 4px solid var(--schlecht); }
+.ausweg { margin-top: 26px; padding: 18px 20px; border-radius: 16px; background: var(--warn-hell); }
+.ausweg h2 { font-size: 19px; margin: 0 0 6px; }
+.ausweg p { margin: 0; }
+.ausweg .knoepfe { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.pruefliste .ok.aus { background: var(--warn-hell); color: var(--tinte); }
 .urteil-zeichen-kreis { animation: einblenden .5s ease both; }
 .urteil-zeichen-haken { animation: einblenden .5s .15s ease both; }
 .urteil-zeichen-kreis, .urteil-zeichen-haken { transform-box: fill-box; transform-origin: center; }
@@ -279,27 +285,42 @@ main { max-width: 1480px; margin: 0 auto; padding: 28px; }
 .blatt { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 
 .meldung { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: var(--tinte); color: var(--grund);
-           padding: 12px 20px; border-radius: 12px; box-shadow: var(--schatten); z-index: 40; max-width: 90vw; }
+           padding: 12px 20px; border-radius: 12px; box-shadow: var(--schatten); z-index: 40; max-width: min(90vw, 560px); cursor: pointer; }
 .fuss { max-width: 1480px; margin: 10px auto 0; padding: 18px 28px 30px; color: var(--leise); font-size: 14px; display: flex;
         justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
 @media (max-width: 1180px) {
   .pruefen { grid-template-columns: 1fr; }
   .reiter { position: static; }
-  .reiter-liste { grid-auto-flow: column; overflow-x: auto; }
+  .reiter-liste { grid-auto-flow: column; grid-auto-columns: minmax(210px, 1fr); overflow-x: auto; padding-bottom: 4px; }
   .tafel { position: static; max-height: none; }
   .start { grid-template-columns: 1fr; gap: 30px; }
-  .kopf-innen { grid-template-columns: 1fr auto; }
-  .schritte { grid-column: 1 / -1; order: 3; justify-content: center; overflow-x: auto; }
+  .kopf-innen { grid-template-columns: minmax(0, 1fr) auto; row-gap: 8px; }
+  .kopf-innen > nav { grid-column: 1 / -1; grid-row: 2; }
+  .schritte { justify-content: center; }
 }
 @media (max-width: 640px) {
   body { font-size: 16px; }
-  .karten { grid-template-columns: minmax(0, 1fr); }
   main { padding: 16px; }
-  .kopf-innen { padding: 10px 16px; }
+  .kopf-innen { padding: 10px 16px; column-gap: 12px; }
+  .marke svg { height: 25px; }
+  .werkzeuge { gap: 4px; }
+  .werkzeuge .knopf.klein { padding: 0 10px; }
+  .schritte { gap: 2px; }
+  .schritte button { padding: 6px 8px; gap: 8px; }
   .schritte .text { display: none; }
+  .schritte [aria-current="step"] .text { display: inline; }
+  .schritte .trenner { width: 12px; }
   .zahlenreihe { grid-template-columns: 1fr 1fr; }
   .probe { padding: 24px 20px; }
+  .ablage { padding: 16px; }
+  .zone { padding: 30px 14px 26px; }
+  .leiste { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 14px; }
+  .blaettern span, .schalter-zeichnen { white-space: nowrap; }
+}
+@media (max-width: 380px) {
+  .marke svg { height: 22px; }
+  .schritte .trenner { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }

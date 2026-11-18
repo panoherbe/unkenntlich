@@ -132,6 +132,30 @@ def gefuelltes_rechteck(bild_arr: np.ndarray, r, farbe, radius: int = 0) -> None
         cv2.circle(bild_arr, (cx, cy), radius, farbe, -1, lineType=cv2.LINE_8)
 
 
+def rest_stellen(reste: list[dict], bestaetigt: list[dict], grosszuegig: bool, breite: int, hoehe: int) -> list[dict]:
+    """Reste der Gegenprobe mit Ort als neue, offene Stellen.
+
+    Bleibt nach einer Übernahme noch ein Rest (ein Modell schätzt etwa die Augen aus der Körperhaltung und findet sie
+    knapp neben jeder Fläche wieder), deckt die nächste Runde großzügig ab: das Rechteck des Rests doppelt so breit und
+    hoch, zusammengelegt mit jeder bestätigten Fläche, die es berührt. Aus mehreren kleinen Flächen wird eine große, und
+    der Rest liegt sicher darunter."""
+    flaechen = [tuple(r) for s in bestaetigt for r in s.get("rechtecke", [])]
+    out = []
+    for r in reste:
+        if not r.get("rechteck"):
+            continue
+        box = tuple(r["rechteck"])
+        grund = f"Rest aus der Gegenprobe ({r['pruefung']})"
+        if grosszuegig:
+            box = bild.erweitern(box, 1.0, breite, hoehe)
+            for f in flaechen:
+                if f[0] < box[2] and box[0] < f[2] and f[1] < box[3] and box[1] < f[3]:
+                    box = (min(box[0], f[0]), min(box[1], f[1]), max(box[2], f[2]), max(box[3], f[3]))
+            grund = f"Rest nach mehreren Runden, großzügig abgedeckt ({r['pruefung']})"
+        out.append({"kategorie": r["kategorie"], "grund": grund, "rechtecke": [[round(float(v), 1) for v in box]]})
+    return out
+
+
 def speichern(rgb: np.ndarray, ausgang, fmt: str) -> None:
     """Nur die Bildpunkte, keine EXIF-, XMP-, IPTC- oder Textfelder, kein Farbprofil."""
     bild_neu = Image.fromarray(rgb)

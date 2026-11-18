@@ -1,6 +1,6 @@
 """Macht aus den erzeugten Rohdateien die Testdateien des Prüfsatzes, mit erfundenen Metadaten zum Prüfen.
 
-    docker run --rm --network none -u "$(id -u):$(id -g)" -v "$PWD":/app -w /app unkenntlich:0.1.0 \
+    docker run --rm --network none -u "$(id -u):$(id -g)" -v "$PWD":/app -w /app unkenntlich:0.2.0 \
         python pruefsatz/erzeugung/metadaten.py
 
 Fotos: PNG aus bilder.py → JPEG in pruefsatz/fotos/ mit erfundenen EXIF-Angaben (Kamera, Urheber, Seriennummer,
