@@ -5,19 +5,23 @@
   </picture>
 </p>
 
-**Personen und ihre Daten in Dokumenten, Fotos und Videos unkenntlich machen, auf dem eigenen Rechner. Unkenntlich
-schlägt jede Stelle vor, ein Mensch entscheidet, dann werden die Inhalte wirklich entfernt. Eine Gegenprobe sucht auf
-dem Ergebnis noch einmal und sperrt den Export, solange sie etwas findet. Ein Prüfbericht hält fest, was geschah. Ein
-offener Prototyp, der heute läuft, ohne Internet und ohne Grafikkarte.** Heute ist er für IT-Kundige mit Docker gedacht;
-ein Paket zum Installieren für alle ist der nächste Schritt.
+**Personen und ihre Daten in Dokumenten, Fotos und Videos unkenntlich machen, auf dem eigenen Rechner.**
 
-![Rundgang in sechs Szenen: drei Dateien ablegen, ein Schreiben prüfen und einen Stempel selbst markieren, ein Foto mit Gesichtern, Kennzeichen und einer Statue, ein Video mit einer Karte je Person, die Gegenprobe mit 0 Resten, Vorher-Nachher und Prüfbericht](medien/rundgang.gif)
+Unkenntlich schlägt jede Stelle vor, ein Mensch entscheidet, dann werden die Inhalte wirklich entfernt. Eine Gegenprobe
+sucht auf dem Ergebnis noch einmal und gibt den Export erst frei, wenn sie nichts mehr findet. Ein Prüfbericht hält
+fest, was geschah. Ein offener Prototyp, der heute läuft, ohne Internet und ohne Grafikkarte, gestartet mit Docker;
+Installationspakete für Windows und Linux folgen.
 
-<sub>Rundgang: 91 Sekunden, sechs Szenen, ohne Ton; aufgenommen am 18.11.2026 in einer frischen Installation (Version 0.2.0), nur auf der CPU gerechnet. Erkennung und Gegenprobe liefen ohne Aufnahme; die Untertitel nennen ihre Dauer aus dem Messlauf (die Oberfläche zeigt die Dauer dieser Aufnahme, in der der Browser mitrechnet). Das Schreiben ist erfunden (simuliert); Foto und Video sind mit offenen Modellen erzeugt: **keine echten Personen, keine echten Kennzeichen** ([Quellen](pruefsatz/QUELLEN.md)). Bewegtes Bild oben: 4,7 MB. [Video herunterladen (MP4, 3,6 MB)](https://github.com/panoherbe/unkenntlich/raw/main/medien/rundgang.mp4) · Text des Rundgangs weiter unten.</sub>
+**Auf einen Blick:** ① Dateien ablegen → ② Vorschläge ansehen, der Mensch entscheidet → ③ Inhalte wirklich entfernen →
+④ Gegenprobe gibt den Export frei → ⑤ Prüfbericht, ohne die Daten selbst.
 
 **Für wen:** Behörden und Kommunen, die Akten nach Informationsfreiheits- und Transparenzgesetzen herausgeben; Ämter,
 Vereine und kleine Unternehmen, die DSGVO-Auskünfte mit Fotos oder Kameraaufnahmen beantworten; Redaktionen,
 Initiativen und Schulen, die Bilder von Menschen zeigen; alle, die eine Kopie weitergeben und vorher etwas schwärzen.
+
+![Rundgang in sechs Szenen: drei Dateien ablegen, ein Schreiben prüfen und einen Stempel selbst markieren, ein Foto mit Gesichtern, Kennzeichen und einer Statue, ein Video mit einer Karte je Person, die Gegenprobe mit 0 Resten, Vorher-Nachher und Prüfbericht](medien/rundgang.gif)
+
+<sub>Rundgang: 91 Sekunden, sechs Szenen, ohne Ton; aufgenommen am 18.11.2026 in einer frischen Installation (Version 0.2.0), nur auf der CPU gerechnet. Erkennung und Gegenprobe liefen ohne Aufnahme; die Untertitel nennen ihre Dauer aus dem Messlauf (die Oberfläche zeigt die Dauer dieser Aufnahme, in der der Browser mitrechnet). Das Schreiben ist erfunden (simuliert); Foto und Video sind mit offenen Modellen erzeugt: **keine echten Personen, keine echten Kennzeichen** ([Quellen](pruefsatz/QUELLEN.md)). Bewegtes Bild oben: 4,7 MB. [Video herunterladen (MP4, 3,6 MB)](https://github.com/panoherbe/unkenntlich/raw/main/medien/rundgang.mp4) · Text des Rundgangs weiter unten.</sub>
 
 <p align="center">
   <img src="medien/2-schreiben.jpg" width="49%" alt="Ein erfundenes, gescanntes Schreiben nach dem Prüfen: Name, Anschrift, Telefon, IBAN, Steuer-ID, Geburtsdatum, Unterschrift und ein selbst gezogener Stempel sind schwarz; die Zentrale der Behörde bleibt sichtbar">
@@ -28,6 +32,23 @@ Initiativen und Schulen, die Bilder von Menschen zeigen; alle, die eine Kopie we
 
 <sub>Bilder aus dem Rundgang: Schreiben erfunden (simuliert), Foto und Video mit offenen Modellen erzeugt (keine
 echten Personen, keine echten Kennzeichen, [Quellen](pruefsatz/QUELLEN.md)).</sub>
+
+## Warum es Unkenntlich braucht
+
+Kurz: Transparenz und Datenschutz treffen täglich aufeinander, und Schwärzen ist heute meist Handarbeit.
+
+- Die Bundesbehörden bearbeiteten 2025 18.982 Vorgänge nach dem Informationsfreiheitsgesetz, 17 Prozent mehr als 2024
+  ([BT-Drs. 21/8592](https://dserver.bundestag.de/btd/21/085/2108592.pdf)); dazu kommen Länder, Kommunen und
+  DSGVO-Auskünfte von Ämtern, Vereinen und Unternehmen.
+- In einer Untersuchung von knapp 5.000 Behörden-PDFs ließen sich Schwärzungen rekonstruieren, bei einer Behörde 83
+  Passagen ([Golem](https://www.golem.de/news/behoerden-pdfs-vertrauliche-daten-trotz-schwaerzung-rekonstruierbar-2609-212878.html),
+  [Begleitbeitrag](https://oliverjessner.at/blog/2026-09-14-pdfs-richtig-schwaerzen-warum-ein-schwarzer-balken-nicht-reicht/)).
+- Der Bayerische Landesbeauftragte für den Datenschutz verlangt nach jeder Schwärzung eine abschließende Kontrolle und
+  rät von frei zugänglichen Online-Werkzeugen ab
+  ([Aktuelle Kurz-Information 66](https://www.datenschutz-bayern.de/datenschutzreform2018/aki66.pdf)).
+
+Unkenntlich bringt Transparenz und Datenschutz zusammen: lokal, mit dem Menschen als Entscheider, mit einer Gegenprobe vor jedem Export und
+einem Prüfbericht.
 
 ## Was Unkenntlich kann, läuft hier schon
 
@@ -42,7 +63,7 @@ offenen Modellen erzeugt, und der Mensch, der im Messlauf bestätigt, ist ein Sk
 | Gesichter und Kennzeichen in Fotos | Gesichter, Köpfe auch von hinten, Kennzeichen mit zwei Modellen, Text im Bild; deckend überschrieben, nicht verpixelt | 4 erzeugte Fotos (1536 × 1024): Erkennung je 0,6 bis 0,7 s auf der CPU; EXIF und GPS danach entfernt |
 | Personen im Video | jede Person über alle Einzelbilder verfolgt, eine Karte und eine Entscheidung je Person (Gesicht, ganze Person oder sichtbar lassen), Kennzeichen ebenso; Zeitleiste; nach einem Schnitt beginnen alle Spuren neu | erzeugtes Video, 10 s in drei Szenen (1024 × 560): 22 Personen, 4 weitere Gesichter, 3 Kennzeichen; beide Schnitte erkannt; Erkennung 49 s auf der CPU |
 | Wirklich entfernen | Text und Bildpunkte unter jedem Balken, Metadaten, XMP, Anhänge, Anmerkungen, Formularfelder, Lesezeichen; EXIF und GPS; Ton und Metadaten im Video | zweite, unabhängige Prüfung: 0 von 148 eingesetzten Angaben im Ergebnis noch lesbar; Kontrollversuch „nur schwarz übermalt“: Gegenprobe findet den Inhalt unter den Kästen in 10 von 10 PDFs (Text in der Textschicht in 8, Bildpunkte unter den Flächen in 10) und sperrt alle 10 |
-| Gegenprobe vor dem Export | alle Erkenner erneut auf dem Ergebnis, Textschicht, Bildpunkte unter den Flächen und neue Texterkennung, jedes Einzelbild; bei einem Rest bleibt der Export gesperrt, der Rest wird ein neuer Vorschlag; bleibt er auch danach, deckt die nächste Runde in Fotos und Videos großzügiger ab, und als letzter Ausweg wird die Datei nicht herausgegeben | am Ende 0 Reste in allen 17 Dateien; zuerst fand sie in einem Schreiben und einem Foto je 1 Rest (gesperrt, übernommen, dann 0); Kontrollversuch Video: jedes zehnte Einzelbild unbearbeitet, gefunden in 24 von 24 |
+| Gegenprobe vor dem Export | feste Regeln und eine Wortsuche nach jeder bestätigten Angabe (in der Textschicht und in einer neuen Texterkennung), die Bildpunkte unter den Flächen; Gesichter und Kennzeichen erneut gesucht, im Video auf jedem Einzelbild, in Schreiben auch Unterschriften und Stempel; bei einem Rest bleibt der Export gesperrt, der Rest wird ein neuer Vorschlag; bleibt er auch danach, deckt die nächste Runde in Fotos und Videos großzügiger ab, und als letzter Ausweg wird die Datei nicht herausgegeben | am Ende 0 Reste in allen 17 Dateien; zuerst fand sie in einem Schreiben und einem Foto je 1 Rest (gesperrt, übernommen, dann 0); Kontrollversuch Video: jedes zehnte Einzelbild unbearbeitet, gefunden in 24 von 24 |
 | Prüfbericht | PDF und HTML: jede Stelle mit Kategorie, Ort, Entscheidung, Grund für „sichtbar“, Prüfsummen, Protokoll; ohne die Daten selbst | im Test geprüft: keine Angabe im Klartext, auch nicht im Grund eines Vorschlags |
 | Ohne Internet | Modelle beim Bauen geladen, mit Prüfsumme; danach braucht Unkenntlich kein Netz | Messlauf ohne Netz (network_mode: none) |
 | Barrierefrei bedienbar | Tastatur, sichtbarer Fokus, Schieber mit Pfeiltasten, helles und dunkles Schema, Telefon | 0 Verstöße laut axe-core 4.14.1 (WCAG 2.2 AA) in 16 Ansichten, dazu 14 Stellen zur Handprüfung (Farbkontrast über Bildern, Untertitel und ein Attribut am Video) |
@@ -122,26 +143,40 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
 
 </details>
 
-## Was der Prototyp noch nicht ist
+## Stand heute und nächste Schritte
 
-Kurz: Ein laufender, gemessener Anfang. Für den Einsatz kommen die üblichen Schritte dazu.
+Kurz: Ein laufender, gemessener Anfang. Die nächsten Schritte machen Unkenntlich alltagstauglich.
 
-- **Gemessen auf Testdateien.** Zwölf erfundene Schreiben aus drei Vorlagen, vier erzeugte Fotos und ein erzeugtes
-  Video. Echte Akten und Aufnahmen sind vielfältiger (Licht, Unschärfe, Gedränge); die Zahlen zeigen, dass der Ablauf
-  trägt, nicht, wie gut er auf beliebigen Unterlagen ist.
-- **Die Gegenprobe ersetzt nicht den Blick.** Sie findet, was ihre Erkenner erkennen. Was keines der Modelle sieht,
-  muss der Mensch selbst markieren (im Messlauf zum Beispiel einige Stempel). Umgekehrt schlagen die Modelle auch
-  Dinge vor, die ein Mensch sichtbar lässt, etwa das Gesicht einer Statue oder den Kopf einer Schaufensterpuppe.
-- **Video:** im Messlauf ein erzeugtes Video von 10 Sekunden; die Erkennung braucht ohne Grafikkarte etwa 5 Sekunden
-  je Videosekunde, lange Videos entsprechend lange. Text im Video (Schilder, Bildschirme) wird noch nicht gelesen. Ton
-  wird ganz entfernt, nicht geschnitten.
-- **Nicht im Prototyp:** Office-Dateien (über PDF-Export), Handschrift als Text lesen, Livebilder, ein Paket zum
-  Installieren ohne Docker. Barrierefreiheit ist automatisch geprüft (axe-core), noch nicht mit Bildschirmlesern.
-- **Dateinamen** bleiben erhalten; ein Name im Dateinamen muss von Hand geändert werden.
+**Heute:**
 
-## Kontakt
+- **Gemessen auf Testdateien:** zwölf erfundene Schreiben aus drei Vorlagen, vier erzeugte Fotos und ein erzeugtes
+  Video. Die Zahlen zeigen, dass der Ablauf trägt; echte Akten und Aufnahmen sind vielfältiger (Licht, Unschärfe,
+  Gedränge), dafür kommt der größere Prüfsatz.
+- **Die Gegenprobe ergänzt den Blick des Menschen:** Sie findet, was ihre Erkenner erkennen. Was keines der Modelle
+  sieht, markiert der Mensch mit „Bereich ziehen“ (im Messlauf zum Beispiel einige Stempel). Umgekehrt schlagen die
+  Modelle auch vor, was ein Mensch sichtbar lässt, etwa das Gesicht einer Statue oder den Kopf einer Schaufensterpuppe.
+- **Video:** ohne Grafikkarte etwa 5 Sekunden Erkennung und 3 Sekunden Gegenprobe je Videosekunde (Messlauf: ein
+  erzeugtes Video von 10 Sekunden). Ton wird ganz entfernt.
+- **Dateien:** PDFs, Scans, Fotos und Videos; Office-Dateien vorher als PDF speichern. Dateinamen bleiben erhalten; ein Name
+  im Dateinamen wird von Hand geändert. Nicht im Prototyp: Handschrift als Text lesen und Livebilder.
+- **Barrierefreiheit:** automatisch geprüft (axe-core); der Test mit Bildschirmlesern folgt.
 
-[panoherbe.com](https://www.panoherbe.com) · Panagiotis Herbe
+**Als Nächstes:**
+
+1. Die Text-Erkennung von [OpenRedact](https://gitlab.opencode.de/openredact/open-redact) einbinden, mit der eigenen
+   Erkennung als Ausweichweg, und vorher und nachher messen.
+2. Ein größerer offener Prüfsatz mit schwierigen Fällen: schlechte Scans, Gedränge, Dunkelheit.
+3. Stempel zuverlässiger, Text im Video (Schilder, Bildschirme), Video ohne Grafikkarte doppelt so schnell.
+4. Tests mit Anwenderinnen und Anwendern aus Verwaltung, Verein, Redaktion und Schule.
+5. Pakete für Windows und Linux ohne Docker, Anleitungen, Test mit Bildschirmlesern.
+6. Version 1.0 mit Messbericht.
+
+## Mitmachen und Kontakt
+
+Rückmeldungen, schwierige Testfälle (bitte ohne echte Personendaten) und Mitstreiterinnen und Mitstreiter sind
+willkommen: als Issue auf GitHub oder über [panoherbe.com](https://www.panoherbe.com).
+
+Panagiotis Herbe
 
 ---
 

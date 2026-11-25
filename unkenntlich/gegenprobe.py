@@ -1,4 +1,6 @@
-"""Gegenprobe: alle Erkenner laufen erneut über das Ergebnis, dazu unabhängige Prüfungen. Findet sie etwas,
+"""Gegenprobe: feste Regeln und eine Wortsuche nach jeder bestätigten Angabe (Textschicht und neue Texterkennung),
+die Bildpunkte unter den Flächen sowie Gesichter und Kennzeichen (im Video auf jedem Einzelbild, in Schreiben auch
+Unterschriften und Stempel) laufen erneut über das Ergebnis. Findet sie etwas,
 das nicht ausdrücklich sichtbar bleiben soll, ist das ein Rest, und der Export bleibt gesperrt.
 
 Ein Rest ist ein dict: Kategorie, Ort (Seite und Rechteck bzw. Einzelbild und Zeit), Prüfung, Hinweis. Klartext der
