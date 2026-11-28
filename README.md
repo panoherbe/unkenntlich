@@ -1,37 +1,52 @@
-<p>
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="medien/wortmarke-dunkel.svg">
-    <img src="medien/wortmarke-hell.svg" width="340" alt="unkenntlich">
+    <img src="medien/wortmarke-hell.svg" width="380" alt="Unkenntlich">
   </picture>
 </p>
 
-**Personen und ihre Daten in Dokumenten, Fotos und Videos unkenntlich machen, auf dem eigenen Rechner.**
+<p align="center"><b>Personen und ihre Daten in Dokumenten, Fotos und Videos unkenntlich machen, auf dem eigenen Rechner.</b></p>
 
-Unkenntlich schlägt jede Stelle vor, ein Mensch entscheidet, dann werden die Inhalte wirklich entfernt. Eine Gegenprobe
-sucht auf dem Ergebnis noch einmal und gibt den Export erst frei, wenn sie nichts mehr findet. Ein Prüfbericht hält
-fest, was geschah. Ein offener Prototyp, der heute läuft, ohne Internet und ohne Grafikkarte, gestartet mit Docker;
-Installationspakete für Windows und Linux folgen.
+<p align="center">
+  <a href="https://github.com/panoherbe/unkenntlich/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/panoherbe/unkenntlich/actions/workflows/tests.yml/badge.svg"></a>
+  <a href="https://github.com/panoherbe/unkenntlich/releases"><img alt="Version" src="https://img.shields.io/github/v/release/panoherbe/unkenntlich?label=Version&color=0b5866"></a>
+  <a href="LICENSE"><img alt="Lizenz: AGPL-3.0-or-later" src="https://img.shields.io/badge/Lizenz-AGPL--3.0--or--later-0b5866"></a>
+  <img alt="Läuft ohne Internet und ohne Grafikkarte" src="https://img.shields.io/badge/l%C3%A4uft-ohne%20Internet%20und%20Grafikkarte-0b5866">
+</p>
+
+<p align="center">
+  <a href="#in-zwei-minuten-selbst-prüfen">Selbst ausprobieren</a> ·
+  <a href="#was-unkenntlich-kann-läuft-hier-schon">Gemessen</a> ·
+  <a href="#rundgang">Rundgang</a> ·
+  <a href="#fahrplan-2027">Fahrplan 2027</a> ·
+  <a href="#mitmachen-und-kontakt">Mitmachen</a> ·
+  <a href="#wörter-kurz-erklärt">Wörter</a> ·
+  <a href="https://www.panoherbe.com/projekte/unkenntlich">Projektseite mit Video</a>
+</p>
+
+![Vorher und nachher, zwei Beispiele aus dem Messlauf: In einem erzeugten Foto werden Gesichter und Kennzeichen deckend überschrieben; in einem erfundenen Schreiben verschwinden Name, Anschrift, IBAN, Steuer-ID, Unterschrift und Stempel unter Balken](medien/vorher-nachher.gif)
+
+<sub>Vorher und nachher, Ergebnisse aus dem Messlauf vom 18.11.2026 (Version 0.2.0). Das Foto ist mit offenen Modellen
+erzeugt, das Schreiben erfunden (simuliert): **keine echten Personen, keine echten Kennzeichen**
+([Quellen](pruefsatz/QUELLEN.md)). Im Messlauf bestätigt ein Skript jeden Vorschlag, darum ist hier auch das Gesicht
+der Statue abgedeckt; im [Rundgang](#rundgang) lässt der Mensch es sichtbar.</sub>
+
+## In 30 Sekunden
+
+- **Was:** Unkenntlich schlägt jede Stelle vor, ein Mensch entscheidet, dann werden die Inhalte wirklich entfernt. Eine
+  **Gegenprobe** (eine zweite Suche auf dem fertigen Ergebnis) gibt den Export erst frei, wenn sie nichts mehr findet.
+  Ein **Prüfbericht** hält fest, was geschah, ohne die Daten selbst.
+- **Für wen:** Behörden und Kommunen, die Akten nach Informationsfreiheits- und Transparenzgesetzen herausgeben; Ämter,
+  Vereine und kleine Unternehmen, die DSGVO-Auskünfte mit Fotos oder Kameraaufnahmen beantworten; Redaktionen,
+  Initiativen und Schulen, die Bilder von Menschen zeigen; alle, die eine Kopie weitergeben und vorher etwas schwärzen.
+- **Wie:** ein offener Prototyp, der heute läuft, ohne Internet und ohne Grafikkarte, gestartet mit Docker (einem
+  kostenlosen Programm, das fertig gepackte Software auf dem eigenen Rechner startet). Die Dateien verlassen den
+  Rechner nicht.
+- **Stand:** Version 0.2.0, gemessen am 18.11.2026 auf Testdateien. Installationspakete für Windows und Linux sind
+  [für 2027 geplant](#fahrplan-2027).
 
 **Auf einen Blick:** ① Dateien ablegen → ② Vorschläge ansehen, der Mensch entscheidet → ③ Inhalte wirklich entfernen →
 ④ Gegenprobe gibt den Export frei → ⑤ Prüfbericht, ohne die Daten selbst.
-
-**Für wen:** Behörden und Kommunen, die Akten nach Informationsfreiheits- und Transparenzgesetzen herausgeben; Ämter,
-Vereine und kleine Unternehmen, die DSGVO-Auskünfte mit Fotos oder Kameraaufnahmen beantworten; Redaktionen,
-Initiativen und Schulen, die Bilder von Menschen zeigen; alle, die eine Kopie weitergeben und vorher etwas schwärzen.
-
-![Rundgang in sechs Szenen: drei Dateien ablegen, ein Schreiben prüfen und einen Stempel selbst markieren, ein Foto mit Gesichtern, Kennzeichen und einer Statue, ein Video mit einer Karte je Person, die Gegenprobe mit 0 Resten, Vorher-Nachher und Prüfbericht](medien/rundgang.gif)
-
-<sub>Rundgang: 91 Sekunden, sechs Szenen, ohne Ton; aufgenommen am 18.11.2026 in einer frischen Installation (Version 0.2.0), nur auf der CPU gerechnet. Erkennung und Gegenprobe liefen ohne Aufnahme; die Untertitel nennen ihre Dauer aus dem Messlauf (die Oberfläche zeigt die Dauer dieser Aufnahme, in der der Browser mitrechnet). Das Schreiben ist erfunden (simuliert); Foto und Video sind mit offenen Modellen erzeugt: **keine echten Personen, keine echten Kennzeichen** ([Quellen](pruefsatz/QUELLEN.md)). Bewegtes Bild oben: 4,7 MB. [Video herunterladen (MP4, 3,6 MB)](https://github.com/panoherbe/unkenntlich/raw/main/medien/rundgang.mp4) · Text des Rundgangs weiter unten.</sub>
-
-<p align="center">
-  <img src="medien/2-schreiben.jpg" width="49%" alt="Ein erfundenes, gescanntes Schreiben nach dem Prüfen: Name, Anschrift, Telefon, IBAN, Steuer-ID, Geburtsdatum, Unterschrift und ein selbst gezogener Stempel sind schwarz; die Zentrale der Behörde bleibt sichtbar">
-  <img src="medien/3-foto.jpg" width="49%" alt="Ein erzeugtes Foto von einem Marktplatz: Gesichter und Kennzeichen sind deckend überschrieben; das Gesicht einer Bronzestatue bleibt sichtbar, Grund „Kein Personenbezug“">
-  <img src="medien/4-video.jpg" width="49%" alt="Ein erzeugtes Video einer Fußgängerzone mit Rahmen um Personen, darunter eine Zeitleiste je Gruppe, rechts Karten je Person mit den Schaltern „Gesicht“, „Ganze Person“ und „Sichtbar“; eine Person bleibt sichtbar, Grund „Einwilligung liegt vor“">
-  <img src="medien/5-gegenprobe.jpg" width="49%" alt="Ergebnis der Gegenprobe: großer Haken, 0 Reste, Export freigegeben, darunter die Prüfungen je Datei">
-</p>
-
-<sub>Bilder aus dem Rundgang: Schreiben erfunden (simuliert), Foto und Video mit offenen Modellen erzeugt (keine
-echten Personen, keine echten Kennzeichen, [Quellen](pruefsatz/QUELLEN.md)).</sub>
 
 ## Warum es Unkenntlich braucht
 
@@ -119,6 +134,24 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
   ausnehmen: Sie wird nicht herausgegeben, ihr Ergebnis ist nicht abrufbar, und der Prüfbericht nennt sie mit ihren
   Resten. Übergangen wird ein Rest nie ([Test](tests/test_schwaerzen.py)).
 
+## Rundgang
+
+Kurz: 91 Sekunden durch die ganze Oberfläche, ohne Ton, mit Untertiteln.
+
+![Rundgang in sechs Szenen: drei Dateien ablegen, ein Schreiben prüfen und einen Stempel selbst markieren, ein Foto mit Gesichtern, Kennzeichen und einer Statue, ein Video mit einer Karte je Person, die Gegenprobe mit 0 Resten, Vorher-Nachher und Prüfbericht](medien/rundgang.gif)
+
+<sub>Rundgang: 91 Sekunden, sechs Szenen, ohne Ton; aufgenommen am 18.11.2026 in einer frischen Installation (Version 0.2.0), nur auf der CPU gerechnet. Erkennung und Gegenprobe liefen ohne Aufnahme; die Untertitel nennen ihre Dauer aus dem Messlauf (die Oberfläche zeigt die Dauer dieser Aufnahme, in der der Browser mitrechnet). Das Schreiben ist erfunden (simuliert); Foto und Video sind mit offenen Modellen erzeugt: **keine echten Personen, keine echten Kennzeichen** ([Quellen](pruefsatz/QUELLEN.md)). Bewegtes Bild oben: 4,7 MB. [Video herunterladen (MP4, 3,6 MB)](https://github.com/panoherbe/unkenntlich/raw/main/medien/rundgang.mp4) · [im Player auf der Projektseite](https://www.panoherbe.com/projekte/unkenntlich#video).</sub>
+
+<p align="center">
+  <img src="medien/2-schreiben.jpg" width="49%" alt="Ein erfundenes, gescanntes Schreiben nach dem Prüfen: Name, Anschrift, Telefon, IBAN, Steuer-ID, Geburtsdatum, Unterschrift und ein selbst gezogener Stempel sind schwarz; die Zentrale der Behörde bleibt sichtbar">
+  <img src="medien/3-foto.jpg" width="49%" alt="Ein erzeugtes Foto von einem Marktplatz: Gesichter und Kennzeichen sind deckend überschrieben; das Gesicht einer Bronzestatue bleibt sichtbar, Grund „Kein Personenbezug“">
+  <img src="medien/4-video.jpg" width="49%" alt="Ein erzeugtes Video einer Fußgängerzone mit Rahmen um Personen, darunter eine Zeitleiste je Gruppe, rechts Karten je Person mit den Schaltern „Gesicht“, „Ganze Person“ und „Sichtbar“; eine Person bleibt sichtbar, Grund „Einwilligung liegt vor“">
+  <img src="medien/5-gegenprobe.jpg" width="49%" alt="Ergebnis der Gegenprobe: großer Haken, 0 Reste, Export freigegeben, darunter die Prüfungen je Datei">
+</p>
+
+<sub>Bilder aus dem Rundgang: Schreiben erfunden (simuliert), Foto und Video mit offenen Modellen erzeugt (keine
+echten Personen, keine echten Kennzeichen, [Quellen](pruefsatz/QUELLEN.md)).</sub>
+
 ## Text des Rundgangs
 
 <details>
@@ -143,11 +176,9 @@ Kurz: Ablauf, Gegenprobe und Messung liegen offen.
 
 </details>
 
-## Stand heute und nächste Schritte
+## Stand heute
 
-Kurz: Ein laufender, gemessener Anfang. Die nächsten Schritte machen Unkenntlich alltagstauglich.
-
-**Heute:**
+Kurz: Ein laufender, gemessener Anfang. Der Fahrplan unten macht Unkenntlich alltagstauglich.
 
 - **Gemessen auf Testdateien:** zwölf erfundene Schreiben aus drei Vorlagen, vier erzeugte Fotos und ein erzeugtes
   Video. Die Zahlen zeigen, dass der Ablauf trägt; echte Akten und Aufnahmen sind vielfältiger (Licht, Unschärfe,
@@ -161,22 +192,48 @@ Kurz: Ein laufender, gemessener Anfang. Die nächsten Schritte machen Unkenntlic
   im Dateinamen wird von Hand geändert. Nicht im Prototyp: Handschrift als Text lesen und Livebilder.
 - **Barrierefreiheit:** automatisch geprüft (axe-core); der Test mit Bildschirmlesern folgt.
 
-**Als Nächstes:**
+Alle Fassungen mit ihren Änderungen: [Releases](https://github.com/panoherbe/unkenntlich/releases).
 
-1. Die Text-Erkennung von [OpenRedact](https://gitlab.opencode.de/openredact/open-redact) einbinden, mit der eigenen
-   Erkennung als Ausweichweg, und vorher und nachher messen.
-2. Ein größerer offener Prüfsatz mit schwierigen Fällen: schlechte Scans, Gedränge, Dunkelheit.
-3. Stempel zuverlässiger, Text im Video (Schilder, Bildschirme), Video ohne Grafikkarte doppelt so schnell.
-4. Tests mit Anwenderinnen und Anwendern aus Verwaltung, Verein, Redaktion und Schule.
-5. Pakete für Windows und Linux ohne Docker, Anleitungen, Test mit Bildschirmlesern.
-6. Version 1.0 mit Messbericht.
+## Fahrplan 2027
+
+Kurz: Sechs Schritte von Juni bis November 2027, jeder mit einem Ergebnis, das man nachmessen kann. Geplant, noch
+nicht gebaut; jeder Schritt hat ein [Issue mit dem Label „Fahrplan 2027“](https://github.com/panoherbe/unkenntlich/issues?q=label%3A%22Fahrplan+2027%22),
+in dem Hinweise und Testfälle willkommen sind.
+
+| Geplant ab | Schritt | Woran man das Ergebnis misst |
+|---|---|---|
+| Juni 2027 | Die Text-Erkennung von [OpenRedact](https://gitlab.opencode.de/openredact/open-redact) einbinden, die eigene Erkennung bleibt als Ausweichweg | Messung vorher und nachher auf dem Prüfsatz |
+| Juli 2027 | Ein größerer offener Prüfsatz mit schwierigen Fällen: schlechte Scans, Gedränge, Dunkelheit; erfunden bzw. erzeugt (simuliert) | Messung je Kategorie, auch die schlechten Läufe |
+| August 2027 | Lücken schließen: Stempel, Text im Video (Schilder, Bildschirme), Video ohne Grafikkarte doppelt so schnell | heute 4 von 8 Stempeln (simuliert) und 4,8 s Erkennung je Videosekunde (Messlauf) |
+| September 2027 | Tests mit Anwenderinnen und Anwendern aus Verwaltung, Verein, Redaktion und Schule | Zeit und übersehene Stellen gegenüber Handarbeit |
+| Oktober 2027 | Pakete für Windows und Linux ohne Docker, Anleitungen auf Deutsch | Test mit Bildschirmlesern |
+| November 2027 | Verbesserungen aus den Tests, Version 1.0 | Messbericht mit allen Läufen |
 
 ## Mitmachen und Kontakt
 
-Rückmeldungen, schwierige Testfälle (bitte ohne echte Personendaten) und Mitstreiterinnen und Mitstreiter sind
-willkommen: als Issue auf GitHub oder über [panoherbe.com](https://www.panoherbe.com).
+Kurz: Rückmeldungen, schwierige Testfälle und Mitstreiterinnen und Mitstreiter sind willkommen.
+
+- **Etwas melden oder vorschlagen:** als [Issue](https://github.com/panoherbe/unkenntlich/issues), bitte ohne echte
+  Personendaten. Wie Sie Tests starten und was ein Beitrag braucht: [`CONTRIBUTING.md`](CONTRIBUTING.md).
+- **Ausprobieren in Ihrer Stelle** (Amt, Verein, Redaktion, Schule): schreiben Sie mir über
+  [panoherbe.com](https://www.panoherbe.com/projekte/unkenntlich#kontakt) oder an kontakt@panoherbe.com.
 
 Panagiotis Herbe
+
+## Wörter, kurz erklärt
+
+| Wort | Bedeutung hier |
+|---|---|
+| Gegenprobe | Eine zweite Suche auf dem fertigen Ergebnis. Findet sie noch eine Angabe, bleibt der Export gesperrt. |
+| Prüfbericht | PDF und HTML mit jeder Stelle, ihrer Kategorie, dem Ort und der Entscheidung; ohne die Daten selbst. |
+| Prüfsatz | Testdateien mit „Wahrheit“: Für jede Datei steht fest, welche Angaben darin sind. Daran wird gemessen. |
+| simuliert | Erfunden oder mit offenen Modellen erzeugt, keine echten Personen; im Messlauf bestätigt ein Skript statt eines Menschen. |
+| Metadaten | Unsichtbare Angaben in einer Datei, etwa Autor, Kamera oder Aufnahmeort (EXIF, GPS, XMP). |
+| Texterkennung (OCR) | Liest Text aus Scans und Fotos, damit auch dort Namen gefunden werden. |
+| Textschicht | Unsichtbarer Text, den Scanner in ein PDF legen; ein schwarzer Kasten darüber entfernt ihn nicht. |
+| Docker | Kostenloses Programm, das fertig gepackte Software auf dem eigenen Rechner startet. |
+| CPU, Grafikkarte | Der normale Prozessor jedes Rechners; eine Grafikkarte ist für Unkenntlich nicht nötig. |
+| AGPL-3.0 | Freie Lizenz: Jede und jeder darf den Code nutzen, ändern und weitergeben, auch Änderungen bleiben frei. |
 
 ---
 
@@ -193,7 +250,7 @@ nichts geht nach außen.
 | Bilder und Video | OpenCV, FFmpeg (H.264, ohne Ton und Metadaten); Vorschau im Browser als WebM |
 | Sicherheit | Content-Security-Policy nur für die eigene Adresse, keine Cookies, keine Konten; Port nur auf `127.0.0.1`; Modelle beim Bauen mit fester Prüfsumme geladen ([`werkzeuge/modelle_laden.py`](werkzeuge/modelle_laden.py)), zur Laufzeit `HF_HUB_OFFLINE=1`, `YOLO_OFFLINE=1`, Statistik von Ultralytics aus |
 | Daten | je Vorgang ein Ordner im Volume `daten`; „Alles löschen“ entfernt ihn vollständig |
-| Tests | `docker compose run --rm test` (19 Tests, 4 warnings, ohne Netz) |
+| Tests | `docker compose run --rm test` (19 Tests, 4 warnings, ohne Netz); GitHub Actions baut bei jeder Änderung am Code das Image und startet die Tests im Container ohne Netz |
 | Nachweise | [Messprotokoll](nachweis/PROTOKOLL.md), [Barrierefreiheit](nachweis/barrierefreiheit.json), Prüfsatz mit Wahrheit ([`pruefsatz/`](pruefsatz/)) |
 
 ### Modelle und Lizenzen (geprüft am 17.11.2026)
@@ -228,5 +285,6 @@ echten Kennzeichen) und stehen unter CC0 1.0; Herkunft, Modelle und Startwerte i
 [`pruefsatz/QUELLEN.md`](pruefsatz/QUELLEN.md). Rundgang und Bilder in `medien/` und `nachweis/bilder/` zeigen diese
 Dateien, bearbeitet: Markierungen und Abdeckungen aus Unkenntlich. Modelle: Lizenz laut Repository, wie in der Tabelle
 oben. Schriften: SIL Open Font License 1.1, Urheber und reservierte Namen in den `OFL.txt` neben den Schriften.
+Wortmarke und Vorschaubilder in `medien/` sind aus Albert Sans und IBM Plex Mono (OFL) gesetzt.
 
 © 2026 Panagiotis Herbe

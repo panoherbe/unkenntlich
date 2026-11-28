@@ -1,0 +1,30 @@
+# Tests wie auf dem eigenen Rechner: Image bauen (Bibliotheken und Modelle mit fester Prüfsumme),
+# dann die Tests im Container ohne Netz (docker compose run --rm test).
+name: Tests
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md", "medien/**", "nachweis/**", "LICENSE"]
+  pull_request:
+    paths-ignore: ["**.md", "medien/**", "nachweis/**", "LICENSE"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tests:
+    name: Tests im Container, ohne Netz
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - name: Platz für das Image schaffen (etwa 4,5 GB)
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+      - name: Image bauen
+        run: docker compose build app
+      - name: Tests ohne Netz
+        run: docker compose run --rm test
